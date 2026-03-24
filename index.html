@@ -3,115 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kosei Yamauchi</title>
+    <title>KOSEI YAMAUCHI</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="splash-screen"><div class="splash-text">Kosei Yamauchi</div></div>
-
-    <nav class="navbar">
-        <a href="index.html" class="logo">KOSEI YAMAUCHI</a>
-        <div class="nav-switcher">
-            <div class="sub-nav-trigger" onclick="openOverlay('index-overlay')">Index</div>
-            <div class="nav-divider-horizontal"></div>
-            <div class="sub-nav-trigger" onclick="openOverlay('overview-overlay')">Overview</div>
-        </div>
-        <ul class="nav-links">
-            <li class="desktop-only"><a href="commissioned.html">Commissioned</a></li>
-            <li class="desktop-only"><a href="personal.html">Personal</a></li>
-            <li><a href="info.html">Info</a></li>
-        </ul>
-    </nav>
-
-    <main class="hero-container">
-        <div class="slider-wrapper">
-            <div class="click-area left" onclick="prevImage()"></div>
-            <div class="click-area right" onclick="nextImage()"></div>
-            <img src="" id="carousel-img">
-            <div id="carousel-caption" class="caption-sub"></div>
-        </div>
-    </main>
-
-    <div id="index-overlay" class="overlay-full">
-        <div class="close-btn" onclick="closeOverlay('index-overlay')">Close</div>
-        <section><h3 class="category-title">Commissioned</h3><ul class="list-container"><li><a href="commissioned.html#Echoes_Eye">Project A</a></li></ul></section>
-        <section><h3 class="category-title">Personal</h3><ul class="list-container"><li><a href="personal.html#SriLanka-3397">Landscape</a></li></ul></section>
-    </div>
-
-    <div id="overview-overlay" class="overlay-full">
-        <div class="close-btn" onclick="closeOverlay('overview-overlay')">Close</div>
-
-        <div class="index-grid-wrapper">
-        <section>
-            <h3 class="category-title">Commissioned</h3>
-            <div class="overview-grid">
-                <a href="commissioned.html#Echoes_Eye">
-                    <img src="images/Echoes_Eye.jpg" alt="Tentative-Echoes 001, 2025">
-                </a>
-                <a href="commissioned.html#Echoes_Ear-2">
-                    <img src="images/Echoes_Ear-2.jpg" alt="Tentative-Echoes 002, 2025">
-                </a>
-                <a href="commissioned.html#Popeye-1">
-                    <img src="images/Popeye_JapaneseBreakfast-0327.jpg" alt="Popeye Web-Japanese Breakfast 001, 2025">
-                </a>
-                <a href="commissioned.html#Popeye-2">
-                    <img src="images/Popeye_JapaneseBreakfast-0431.jpg" alt="Popeye Web-Japanese Breakfast 002, 2025">
-                </a>
-                <a href="commissioned.html#Popeye-3">
-                    <img src="images/Popeye_JapaneseBreakfast-0468.jpg" alt="Popeye Web-Japanese Breakfast 003, 2025">
-                </a>
-            </div>
-        </section>
-
-        <section>
-            <h3 class="category-title">Personal</h3>
-            <div class="overview-grid">
-                <a href="personal.html#SriLanka-3397">
-                    <img src="images/Personal_SriLanka-3397.jpg" alt="Landscape 001, 2025">
-                </a>
-                <a href="personal.html#SriLanka-2876">
-                    <img src="images/Personal_SriLanka-2876.jpg" alt="Landscape 002, 2025">
-                </a>
-                <a href="personal.html#Germany-3397">
-                    <img src="images/Germany-4653.jpg" alt="Landscape 003, 2025">
-                <a href="personal.html#Germany-4467">
-                    <img src="images/Germany-4667.jpg" alt="Landscape 004, 2025">
-                </a>
-                <a href="personal.html#Germany-4686">
-                    <img src="images/Germany-4686.jpg" alt="Landscape 005, 2025">
-                </a>
-            </div>
-        </section>
-    </div>
-
-    <script>
-        const images = [
-            { 
-            id: "SriLanka-3397", // 任意のID
-            src: "images/Personal_SriLanka-3397.jpg", // 実際のファイル名
-            cap: "Landscape 001, 2025" // 表示したいキャプション
-            },
-            { 
-            id: "SriLanka-2876", // 任意のID
-            src: "images/Personal_SriLanka-2876.jpg", // 実際のファイル名
-            cap: "Landscape 002, 2025" // 表示したいキャプション
-            },
-        ];
-        let currentIndex = 0;
-
-        function updateDisplay() { document.getElementById('carousel-img').src = images[currentIndex].src; document.getElementById('carousel-caption').innerText = images[currentIndex].cap; }
-        function nextImage() { currentIndex = (currentIndex + 1) % images.length; updateDisplay(); }
-        function prevImage() { currentIndex = (currentIndex - 1 + images.length) % images.length; updateDisplay(); }
-        function openOverlay(id) { document.getElementById(id).style.display = 'block'; }
-        function closeOverlay(id) { document.getElementById(id).style.display = 'none'; }
-        
-        window.onload = () => {
-            if (!sessionStorage.getItem('visited')) {
-                const splash = document.getElementById('splash-screen'); splash.style.display = 'flex';
-                setTimeout(() => { splash.classList.add('hidden'); sessionStorage.setItem('visited', 'true'); }, 1200);
-            }
-            updateDisplay();
-        };
-    </script>
+    <main id="main-content"></main>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

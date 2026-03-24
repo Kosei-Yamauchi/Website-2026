@@ -1,133 +1,147 @@
-/* --- 1. Fonts --- */
-@font-face {
-    font-family: 'Suisse BP Int\'l';
-    src: url("fonts/SuisseBPIntl-Regular.otf") format('opentype');
+/* --- Base Styles --- */
+:root {
+    --bg: #fdfdfd;
+    --gray: #a0a0a0;
+    --text: #1a1a1a;
+    --font: 'Suisse BP Int\'l', sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    background-color: #fdfdfd;
-    color: #1a1a1a;
-    font-family: 'Suisse BP Int\'l', sans-serif;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
+body { 
+    margin: 0; 
+    background: var(--bg); 
+    color: var(--text); 
+    font-family: var(--font); 
+    -webkit-font-smoothing: antialiased; 
 }
 
-/* --- 2. Splash Screen --- */
+/* --- Splash Screen --- */
 #splash-screen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #000; z-index: 9999;
-    display: none; align-items: center;
-    transition: opacity 0.6s ease, visibility 0.6s;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000;
+    z-index: 9999;
+    display: none; 
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 40px;
 }
-.splash-text { color: #fff; font-size: 23px; padding-left: 60px; letter-spacing: -0.5px; }
-#splash-screen.hidden { opacity: 0; visibility: hidden; }
+.splash-logo { color: #fff; font-size: 23px; letter-spacing: 0.0em; text-transform: none; }
+.fade-out { opacity: 0; transition: opacity 0.8s ease; pointer-events: none; }
 
-/* --- 3. Navigation --- */
+/* --- Navbar (PC) --- */
 .navbar {
-    position: fixed; top: 0; width: 100%; height: 100px;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 60px; z-index: 3000;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100px;
+    display: flex; align-items: center; padding: 0 40px; 
+    box-sizing: border-box; z-index: 3000; background: var(--bg);
 }
 
-.logo { font-size: 23px; text-decoration: none; color: inherit; letter-spacing: -0.5px; }
+.logo { 
+    flex: 1; text-align: left; text-decoration: none; color: var(--text); 
+    font-size: 23px; letter-spacing: 0.0em; white-space: nowrap; 
+}
 
-/* Switcher (Index - Overview) */
 .nav-switcher {
-    display: flex; align-items: center; gap: 10px;
     position: absolute; left: 50%; transform: translateX(-50%);
-    z-index: 3100;
-}
-.nav-divider-horizontal { width: 15px; height: 1px; background-color: #e0e0e0; }
-
-.nav-links { display: flex; list-style: none; gap: 40px; z-index: 3100; }
-.nav-links a, .sub-nav-trigger { 
-    text-decoration: none; color: inherit; font-size: 23px; cursor: pointer; letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 10px; font-size: 23px; white-space: nowrap;
 }
 
-/* Active State & Typography Color */
-.active, .category-title { color: #a0a0a0 !important; }
+.nav-divider-horizontal { color: #e0e0e0; font-weight: 400; margin: 0 0px; user-select: none; }
 
-/* --- 4. Main Content --- */
-.hero-container { height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; }
-.slider-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; }
-.slider-wrapper img { max-height: 70vh; max-width: 80vw; object-fit: contain; }
+.nav-links { flex: 1; display: flex; justify-content: flex-end; list-style: none; gap: 25px; margin: 0; padding: 0; }
+.nav-links a { text-decoration: none; color: var(--text); font-size: 23px; }
+.nav-links a.active { color: var(--gray); pointer-events: none; }
 
-.click-area { position: absolute; top: 0; width: 50%; height: 100%; z-index: 10; }
-.left { left: 0; cursor: w-resize; }
-.right { right: 0; cursor: e-resize; }
-
-.caption-sub { 
-    margin-top: 15px; font-size: 13px; color: #a0a0a0; 
-    font-family: "Times New Roman", "Times", serif; 
+/* --- Info Content (PC) --- */
+#info-content { 
+    padding: 140px 40px; 
+    max-width: 850px; 
+    line-height: 1.1; 
+    font-size: 23px; 
+    box-sizing: border-box; 
 }
+#info-content p { margin-bottom: 1.2em; }
+.contact-section { margin-top: 60px; }
+.contact-section a { color: inherit; text-decoration: none; }
 
-/* --- 5. Overlays --- */
-.overlay-full {
-    display: none; position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%; background: #fdfdfd;
-    z-index: 5000; padding: 120px 60px; overflow-y: auto;
+/* --- Overlays --- */
+.overlay-full { 
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: var(--bg); z-index: 4000; overflow-y: auto; padding: 120px 40px; box-sizing: border-box; 
 }
-.close-btn { position: fixed; top: 38px; right: 60px; font-size: 23px; cursor: pointer; z-index: 5100; }
+.close-btn { position: fixed; top: 35px; right: 40px; cursor: pointer; font-size: 23px; }
+.cat-title { font-size: 14px; color: var(--gray); font-weight: 400; margin-bottom: 30px; letter-spacing: 0.0em; text-transform: none; }
+.ov-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; align-items: start; margin-bottom: 70px; }
+.ov-grid img { width: 100%; height: auto; display: block; }
+.idx-list { list-style: none; padding: 0; margin-bottom: 50px; }
+.idx-list li { margin-bottom: 14px; }
+.idx-list a { text-decoration: none; color: var(--gray); font-size: 23px; }
 
-.category-title { 
-    font-size: 13px;           /* 13pxから少し下げてより繊細に */
-    font-weight: 500;          /* 数字を小さくして細く（フォントが対応していれば100でもOK） */
-    color: #a0a0a0 !important; 
-    text-transform: none; 
-    letter-spacing: 0.0em;    /* 文字の間隔をわずかに広げて上品に */
-    margin-bottom: 15px; 
-    border-bottom: 1px solid #eee; 
-    padding-bottom: 5px; 
-    margin-top: 40px;
+/* --- Hero / Slideshow --- */
+.hero-wrapper { 
+    position: relative; display: flex; flex-direction: column; 
+    align-items: center; justify-content: center; min-height: 100vh; width: 100%; 
 }
-
-.list-container { list-style: none; margin-bottom: 40px; }
-.list-container li { margin-bottom: 10px; }
-.list-container a { text-decoration: none; font-size: 23px; color: inherit; }
-
-/* --- Overview Grid (Align Top) --- */
-.overview-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* PCでは5列 */
-    gap: 20px;                            /* 画像間の余白 */
-    align-items: start;                   /* これで上辺が揃います */
-    margin-bottom: 60px;
+.slide-controls { 
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    width: 85vw; height: 70vh; display: flex; z-index: 10; 
 }
-
-.overview-grid a {
-    display: block;
-    width: 100%;
-    text-decoration: none;
+.click-area { flex: 1; cursor: pointer; display: flex; align-items: center; transition: opacity 0.3s; }
+.click-area::after { 
+    content: ''; width: 10px; height: 10px; border-top: 1px solid var(--gray); 
+    border-right: 1px solid var(--gray); opacity: 0; transition: opacity 0.3s; 
 }
+.area-left { justify-content: flex-start; padding-left: 20px; }
+.area-left::after { transform: rotate(-135deg); }
+.area-right { justify-content: flex-end; padding-right: 20px; }
+.area-right::after { transform: rotate(45deg); }
+.click-area:hover::after { opacity: 0.5; }
 
-.overview-grid img {
-    width: 100%;
-    height: auto;                         /* 高さを自動にして比率を維持 */
-    display: block;
-    object-fit: contain;                  /* 画像を切り取らずに表示 */
-    transition: opacity 0.3s ease;
-}
+.hero-image { max-width: 85vw; max-height: 70vh; object-fit: contain; opacity: 1; transition: opacity 1.0s ease-in-out; }
+.hero-caption { margin-top: 25px; font-size: 12px; color: var(--gray); text-align: center; transition: opacity 1.0s ease-in-out; }
 
-.overview-grid img:hover {
-    opacity: 0.6;
-}
-
-/* --- 6. Info Page --- */
-.info-content { position: fixed; top: 120px; left: 60px; padding-right: 60px; font-size: 23px; line-height: 1.4; overflow-y: auto; height: calc(100vh - 200px); }
-.copyright { font-size: 13px; color: #a0a0a0; margin-top: 40px; padding-bottom: 40px; }
-
-/* --- 7. Mobile Optimization --- */
+/* --- Mobile Styles (MAX 768px) --- */
 @media (max-width: 768px) {
-    .logo, .desktop-only { display: none; }
-    .navbar { height: 80px; padding: 0 20px; justify-content: flex-start; }
-    .nav-switcher { position: static; transform: none; margin-right: 20px; }
-    .nav-links { margin-left: auto; gap: 20px; }
-    .nav-links a, .sub-nav-trigger { font-size: 15px; }
-    .overlay-full { padding: 100px 20px; }
-    .close-btn { top: 30px; right: 20px; font-size: 15px; }
-    .overview-grid {grid-template-columns: repeat(3, 1fr); /* モバイルでは3列 */gap: 8px;}
-    .list-container a { font-size: 16px; }
-    .info-content { top: 100px; left: 20px; font-size: 16px; }
+    .navbar { 
+        height: 60px; 
+        padding: 0 20px !important; 
+        display: flex !important; 
+        justify-content: space-between !important; 
+        align-items: center; 
+    }
+    .navbar .logo { display: none !important; }
+
+    /* Index — Overview を左端(20px)へ配置 */
+    .nav-switcher { 
+        position: static !important; 
+        transform: none !important; 
+        left: auto !important; 
+        display: flex !important; 
+        gap: 8px; 
+        font-size: 18px !important;
+        margin-left: -1px !important; /* IndexのIの視覚的微調整 */
+    }
+
+    /* Infoリンクを右端(20px)へ配置 */
+    .nav-links { display: flex !important; justify-content: flex-end !important; flex: none !important; }
+    #link-commissioned, #link-personal { display: none !important; }
+    .nav-links a { font-size: 18px !important; }
+
+    /* Info本文の開始位置をナビの20pxと完全同期 */
+    #info-content { 
+        padding: 100px 20px !important; 
+        font-size: 18px !important; 
+        line-height: 1.0 !important; 
+        max-width: 100% !important; 
+        box-sizing: border-box !important;
+    }
+    .info-text { margin: 0 !important; text-align: left !important; }
+    .info-text p { 
+        margin-left: 0 !important; 
+        padding-left: 0 !important; 
+        margin-bottom: 1.2em !important;
+    }
+
+    .ov-grid { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+    .close-btn { top: 20px; right: 20px; font-size: 18px; }
 }

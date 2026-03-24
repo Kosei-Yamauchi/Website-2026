@@ -1,0 +1,27 @@
+<div id="splash-screen">
+    <div class="splash-logo">KOSEI YAMAUCHI</div>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">KOSEI YAMAUCHI</a>
+    <div class="nav-switcher">
+        <span class="sub-nav-trigger" onclick="openOverlay('index-overlay')">Index</span>
+        <span class="nav-divider-horizontal">—</span>
+        <span class="sub-nav-trigger" onclick="openOverlay('overview-overlay')">Overview</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="commissioned.html" id="link-commissioned">Commissioned</a></li>
+        <li><a href="personal.html" id="link-personal">Personal</a></li>
+        <li><a href="info.html" id="link-info">Info</a></li>
+    </ul>
+</nav>
+
+<div id="index-overlay" class="overlay-full">
+    <div class="close-btn" onclick="closeOverlay('index-overlay')">Close</div>
+    <div id="index-dynamic-content" class="overlay-inner"></div>
+</div>
+
+<div id="overview-overlay" class="overlay-full">
+    <div class="close-btn" onclick="closeOverlay('overview-overlay')">Close</div>
+    <div id="overview-dynamic-content" class="overlay-inner"></div>
+</div>

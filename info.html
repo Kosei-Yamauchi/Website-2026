@@ -3,35 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Info | Kosei Yamauchi</title>
+    <title>Info | KOSEI YAMAUCHI</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <a href="index.html" class="logo">KOSEI YAMAUCHI</a>
-        <div class="nav-switcher">
-            <div class="sub-nav-trigger" onclick="openOverlay('index-overlay')">Index</div>
-            <div class="nav-divider-horizontal"></div>
-            <div class="sub-nav-trigger" onclick="openOverlay('overview-overlay')">Overview</div>
+    <main id="info-content">
+        <div class="info-text">
+            <p>KOSEI YAMAUCHI is a Tokyo-based photographer whose practice is rooted in visual narratives derived from documentation.</p>
+            <p>Interweaving nature, architecture, and portraiture, his work explores a multifaceted perspective to uncover the quiet stories within the frame.</p>
+            
+            <div class="contact-section">
+                <p>Contact:<br>
+                <a href="mailto:info@kosei-yamauchi.com">info@kosei-yamauchi.com</a></p>
+                <p>Instagram:<br>
+                <a href="https://instagram.com/kosei_yamauchi" target="_blank">@kosei_yamauchi</a></p>
+            </div>
         </div>
-        <ul class="nav-links">
-            <li class="desktop-only"><a href="commissioned.html">Commissioned</a></li>
-            <li class="desktop-only"><a href="personal.html">Personal</a></li>
-            <li><a href="info.html" class="active">Info</a></li>
-        </ul>
-    </nav>
-
-    <main class="info-content">
-        <p>Kosei Yamauchi is a Tokyo-based photographer whose practice is rooted in visual narratives derived from documentation.</p>
-        <p>Interweaving nature, architecture, and portraiture, his work explores a multifaceted perspective to uncover the quiet stories within the frame.</p>
-        <br>
-        <p>Contact: info@kosei-yamauchi.com</p>
-        <p class="copyright">&copy; Kosei Yamauchi 2026. All Rights Reserved.</p>
     </main>
 
-    <script>
-        function openOverlay(id) { document.getElementById(id).style.display = 'block'; }
-        function closeOverlay(id) { document.getElementById(id).style.display = 'none'; }
-    </script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
