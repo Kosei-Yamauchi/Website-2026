@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commissioned | Kosei Yamauchi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">KOSEI YAMAUCHI</a>
+        <div class="nav-switcher">
+            <div class="sub-nav-trigger" onclick="openOverlay('index-overlay')">Index</div>
+            <div class="nav-divider-horizontal"></div>
+            <div class="sub-nav-trigger" onclick="openOverlay('overview-overlay')">Overview</div>
+        </div>
+        <ul class="nav-links">
+            <li class="desktop-only"><a href="commissioned.html" class="active">Commissioned</a></li>
+            <li class="desktop-only"><a href="personal.html">Personal</a></li>
+            <li><a href="info.html">Info</a></li>
+        </ul>
+    </nav>
+
+    <main class="hero-container">
+        <div class="slider-wrapper">
+            <div class="click-area left" onclick="prevImage()"></div>
+            <div class="click-area right" onclick="nextImage()"></div>
+            <img src="" id="carousel-img">
+            <div id="carousel-caption" class="caption-sub"></div>
+        </div>
+    </main>
+
+    <div id="index-overlay" class="overlay-full">
+        <div class="close-btn" onclick="closeOverlay('index-overlay')">Close</div>
+        <section><h3 class="category-title">Commissioned</h3><ul class="list-container"><li><a href="commissioned.html#work1">Project A</a></li></ul></section>
+        <section><h3 class="category-title">Personal</h3><ul class="list-container"><li><a href="personal.html#srilanka">Landscape</a></li></ul></section>
+    </div>
+
+    <div id="overview-overlay" class="overlay-full">
+        <div class="close-btn" onclick="closeOverlay('overview-overlay')">Close</div>
+        <section><h3 class="category-title">Commissioned</h3><div class="overview-grid"><a href="commissioned.html#work1"><img src="images/thumb1.jpg"></a></div></section>
+        <section><h3 class="category-title">Personal</h3><div class="overview-grid"><a href="personal.html#srilanka"><img src="images/thumb2.jpg"></a></div></section>
+    </div>
+
+    <script>
+        const images = [{id:"work1", src:"images/work1.jpg", cap:"Project Alpha"}];
+        let currentIndex = 0;
+        function updateDisplay() { document.getElementById('carousel-img').src = images[currentIndex].src; document.getElementById('carousel-caption').innerText = images[currentIndex].cap; }
+        function nextImage() { currentIndex = (currentIndex + 1) % images.length; updateDisplay(); }
+        function prevImage() { currentIndex = (currentIndex - 1 + images.length) % images.length; updateDisplay(); }
+        function openOverlay(id) { document.getElementById(id).style.display = 'block'; }
+        function closeOverlay(id) { document.getElementById(id).style.display = 'none'; }
+        function checkHash() {
+            const h = window.location.hash.replace('#','');
+            if(h) { const i = images.findIndex(img => img.id === h); if(i!==-1){currentIndex=i; updateDisplay(); closeOverlay('index-overlay'); closeOverlay('overview-overlay');} }
+        }
+        window.onload = () => { checkHash(); updateDisplay(); };
+        window.onhashchange = checkHash;
+    </script>
+</body>
+</html>

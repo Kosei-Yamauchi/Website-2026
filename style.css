@@ -1,0 +1,133 @@
+/* --- 1. Fonts --- */
+@font-face {
+    font-family: 'Suisse BP Int\'l';
+    src: url("fonts/SuisseBPIntl-Regular.otf") format('opentype');
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #fdfdfd;
+    color: #1a1a1a;
+    font-family: 'Suisse BP Int\'l', sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- 2. Splash Screen --- */
+#splash-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 9999;
+    display: none; align-items: center;
+    transition: opacity 0.6s ease, visibility 0.6s;
+}
+.splash-text { color: #fff; font-size: 23px; padding-left: 60px; letter-spacing: -0.5px; }
+#splash-screen.hidden { opacity: 0; visibility: hidden; }
+
+/* --- 3. Navigation --- */
+.navbar {
+    position: fixed; top: 0; width: 100%; height: 100px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px; z-index: 3000;
+}
+
+.logo { font-size: 23px; text-decoration: none; color: inherit; letter-spacing: -0.5px; }
+
+/* Switcher (Index - Overview) */
+.nav-switcher {
+    display: flex; align-items: center; gap: 10px;
+    position: absolute; left: 50%; transform: translateX(-50%);
+    z-index: 3100;
+}
+.nav-divider-horizontal { width: 15px; height: 1px; background-color: #e0e0e0; }
+
+.nav-links { display: flex; list-style: none; gap: 40px; z-index: 3100; }
+.nav-links a, .sub-nav-trigger { 
+    text-decoration: none; color: inherit; font-size: 23px; cursor: pointer; letter-spacing: -0.5px;
+}
+
+/* Active State & Typography Color */
+.active, .category-title { color: #a0a0a0 !important; }
+
+/* --- 4. Main Content --- */
+.hero-container { height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; }
+.slider-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; }
+.slider-wrapper img { max-height: 70vh; max-width: 80vw; object-fit: contain; }
+
+.click-area { position: absolute; top: 0; width: 50%; height: 100%; z-index: 10; }
+.left { left: 0; cursor: w-resize; }
+.right { right: 0; cursor: e-resize; }
+
+.caption-sub { 
+    margin-top: 15px; font-size: 13px; color: #a0a0a0; 
+    font-family: "Times New Roman", "Times", serif; 
+}
+
+/* --- 5. Overlays --- */
+.overlay-full {
+    display: none; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%; background: #fdfdfd;
+    z-index: 5000; padding: 120px 60px; overflow-y: auto;
+}
+.close-btn { position: fixed; top: 38px; right: 60px; font-size: 23px; cursor: pointer; z-index: 5100; }
+
+.category-title { 
+    font-size: 13px;           /* 13pxから少し下げてより繊細に */
+    font-weight: 500;          /* 数字を小さくして細く（フォントが対応していれば100でもOK） */
+    color: #a0a0a0 !important; 
+    text-transform: none; 
+    letter-spacing: 0.0em;    /* 文字の間隔をわずかに広げて上品に */
+    margin-bottom: 15px; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 5px; 
+    margin-top: 40px;
+}
+
+.list-container { list-style: none; margin-bottom: 40px; }
+.list-container li { margin-bottom: 10px; }
+.list-container a { text-decoration: none; font-size: 23px; color: inherit; }
+
+/* --- Overview Grid (Align Top) --- */
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* PCでは5列 */
+    gap: 20px;                            /* 画像間の余白 */
+    align-items: start;                   /* これで上辺が揃います */
+    margin-bottom: 60px;
+}
+
+.overview-grid a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+}
+
+.overview-grid img {
+    width: 100%;
+    height: auto;                         /* 高さを自動にして比率を維持 */
+    display: block;
+    object-fit: contain;                  /* 画像を切り取らずに表示 */
+    transition: opacity 0.3s ease;
+}
+
+.overview-grid img:hover {
+    opacity: 0.6;
+}
+
+/* --- 6. Info Page --- */
+.info-content { position: fixed; top: 120px; left: 60px; padding-right: 60px; font-size: 23px; line-height: 1.4; overflow-y: auto; height: calc(100vh - 200px); }
+.copyright { font-size: 13px; color: #a0a0a0; margin-top: 40px; padding-bottom: 40px; }
+
+/* --- 7. Mobile Optimization --- */
+@media (max-width: 768px) {
+    .logo, .desktop-only { display: none; }
+    .navbar { height: 80px; padding: 0 20px; justify-content: flex-start; }
+    .nav-switcher { position: static; transform: none; margin-right: 20px; }
+    .nav-links { margin-left: auto; gap: 20px; }
+    .nav-links a, .sub-nav-trigger { font-size: 15px; }
+    .overlay-full { padding: 100px 20px; }
+    .close-btn { top: 30px; right: 20px; font-size: 15px; }
+    .overview-grid {grid-template-columns: repeat(3, 1fr); /* モバイルでは3列 */gap: 8px;}
+    .list-container a { font-size: 16px; }
+    .info-content { top: 100px; left: 20px; font-size: 16px; }
+}
