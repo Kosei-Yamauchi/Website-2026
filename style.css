@@ -304,4 +304,12 @@ body {
     .info-text p { margin-left: 0 !important; padding-left: 0 !important; margin-bottom: 1.2em !important; }
 
     .close-btn { top: 20px; right: 20px; font-size: 18px; }
+
+    .click-area::after {
+        display: none !important; /* スマホでは矢印を完全に消去 */
+    }
+    
+    .area-left, .area-right {
+        padding: 0 !important; /* 余計なパディングもリセット */
+    }
 }
