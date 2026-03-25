@@ -14,8 +14,8 @@ async function initApp() {
             splash.style.display = 'flex';
             setTimeout(() => {
                 splash.classList.add('fade-out');
-                setTimeout(() => { splash.style.display = 'none'; }, 800);
-            }, 600);
+                setTimeout(() => { splash.style.display = 'none'; }, 1200);
+            }, 800);
             sessionStorage.setItem('splashed', 'true');
         } else {
             splash.style.display = 'none';

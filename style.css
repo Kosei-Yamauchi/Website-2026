@@ -36,7 +36,7 @@ body {
     padding-left: 40px;
 }
 .splash-logo { color: #fff; font-size: 23px; letter-spacing: 0.0em; text-transform: none; }
-.fade-out { opacity: 0; transition: opacity 0.8s ease; pointer-events: none; }
+.fade-out { opacity: 0; transition: opacity 1.2s ease; pointer-events: none; }
 
 /* --- Navbar (PC) --- */
 .navbar {
