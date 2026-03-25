@@ -71,6 +71,15 @@ body {
 }
 #info-content p { margin-bottom: 1.2em; }
 
+    /* --- Copyright Style --- */
+    .copyright {
+    margin-top: 90px; /* コンタクトセクションから十分に距離を置く */
+    color: var(--gray);
+    font-size: 14px; /* かなり小さく設定 */
+    letter-spacing: 0.02em;
+    opacity: 1; /* さらに存在感を薄くする */
+}
+
 .contact-section .label {
     color: var(--gray);
     font-size: 0.65em; /* ラベルを少し小さくするとより洗練されます。不要なら削除してください */
@@ -273,6 +282,11 @@ body {
         line-height: 1.2 !important; /* 1.0だと詰まりすぎるため1.2を推奨 */
         max-width: 100% !important; 
         box-sizing: border-box !important;
+    }
+    
+    .copyright {
+        margin-top: 60px !important; /* モバイルでは余白を少し詰める */
+        font-size: 13px !important; /* スマホでも主張しすぎないサイズ */
     }
 
     /* モバイルでのラベル調整 */
