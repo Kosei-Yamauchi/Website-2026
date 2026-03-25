@@ -1,5 +1,4 @@
 /* script.js */
-/* script.js の initApp 関数を以下に書き換え */
 
 async function initApp() {
     try {
@@ -11,26 +10,16 @@ async function initApp() {
         
         // --- スプラッシュ画面の制御 ---
         const splash = document.getElementById('splash-screen');
-        // セッション（ブラウザを閉じるまで）で一度も見ていない場合のみ実行
         if (!sessionStorage.getItem('splashed')) {
             splash.style.display = 'flex';
-            
             setTimeout(() => {
                 splash.classList.add('fade-out');
-                // アニメーションが終わったら要素を完全に消す
                 setTimeout(() => { splash.style.display = 'none'; }, 800);
-            }, 600); // 0.6秒間表示
-
-            sessionStorage.setItem('splashed', 'true'); // 見たことを記録
+            }, 600);
+            sessionStorage.setItem('splashed', 'true');
         } else {
-            splash.style.display = 'none'; // 2回目以降は即座に非表示
+            splash.style.display = 'none';
         }
-        // ----------------------------
-
-        // 既存のナビ色・ホーム描画・オーバーレイ処理
-        if(path.includes("commissioned")) document.getElementById('link-commissioned')?.classList.add('active');
-        if(path.includes("personal")) document.getElementById('link-personal')?.classList.add('active');
-        if(path.includes("info")) document.getElementById('link-info')?.classList.add('active');
 
         renderOverlays();
         if (path === "index.html" || path === "") renderHome();
@@ -38,54 +27,72 @@ async function initApp() {
     } catch (e) { console.error(e); }
 }
 
-// ホーム画面(index.html)のスライドショー制御
+// --- ホーム画面(index.html)のスライドショー制御 ---
 let homeSlideIdx = 0;
 let homeSlideTimer = null;
+const allImages = [...PROJECT_DATA.commissioned, ...PROJECT_DATA.personal];
 
 function renderHome() {
     const main = document.getElementById('main-content');
-    if (!main) return;
+    if (!main || allImages.length === 0) return;
 
-    // 全カテゴリの画像を一つのリストに統合
-    const allImages = [...PROJECT_DATA.commissioned, ...PROJECT_DATA.personal];
-    
-    if (allImages.length === 0) return;
-
-    // スライドショーの土台を作成
+    // クリックエリア（左右）をHTMLに追加
     main.innerHTML = `
         <div class="hero-wrapper">
-            <img id="home-slide-img" src="${allImages[0].src}" class="hero-image" style="transition: opacity 1.0s ease-in-out;">
-            <p id="home-slide-cap" class="hero-caption" style="transition: opacity 1.0s ease-in-out;">${allImages[0].cap}</p>
+            <div class="slide-controls">
+                <div class="click-area area-left" id="prev-slide"></div>
+                <div class="click-area area-right" id="next-slide"></div>
+            </div>
+            <img id="home-slide-img" src="${allImages[0].src}" class="hero-image" style="opacity: 1; transition: opacity 1.0s ease-in-out;">
+            <p id="home-slide-cap" class="hero-caption" style="opacity: 1; transition: opacity 1.0s ease-in-out;">${allImages[0].cap}</p>
         </div>
     `;
 
-    const imgEl = document.getElementById('home-slide-img');
-    const capEl = document.getElementById('home-slide-cap');
+    // イベントリスナー登録
+    document.getElementById('prev-slide').addEventListener('click', () => manualChange(-1));
+    document.getElementById('next-slide').addEventListener('click', () => manualChange(1));
 
-    // 3秒ごとに切り替えるタイマーを設定
-    if (homeSlideTimer) clearInterval(homeSlideTimer);
-    
-    homeSlideTimer = setInterval(() => {
-        // フェードアウト
-        imgEl.style.opacity = 0;
-        capEl.style.opacity = 0;
-
-        setTimeout(() => {
-            homeSlideIdx = (homeSlideIdx + 1) % allImages.length;
-            imgEl.src = allImages[homeSlideIdx].src;
-            capEl.innerText = allImages[homeSlideIdx].cap;
-
-            // フェードイン
-            imgEl.style.opacity = 1;
-            capEl.style.opacity = 1;
-        }, 1000); // 1秒かけて入れ替え
-    }, 4000); // 切り替え間隔（4秒ごとに次の画像へ）
+    startTimer();
 }
 
+function startTimer() {
+    if (homeSlideTimer) clearInterval(homeSlideTimer);
+    homeSlideTimer = setInterval(() => changeSlide(1), 5000); // 5秒ごとに自動切り替え
+}
+
+function manualChange(direction) {
+    clearInterval(homeSlideTimer); // 手動クリック時はタイマーをリセット
+    changeSlide(direction);
+    startTimer(); // 再開
+}
+
+function changeSlide(direction) {
+    const imgEl = document.getElementById('home-slide-img');
+    const capEl = document.getElementById('home-slide-cap');
+    if(!imgEl) return;
+
+    // 1. まず完全に透明にする（0.6sのTransitionが効く）
+    imgEl.style.opacity = 0;
+    capEl.style.opacity = 0;
+
+    // 2. CSSのtransition時間（0.6s）と同じタイミングで中身を入れ替える
+    setTimeout(() => {
+        homeSlideIdx = (homeSlideIdx + direction + allImages.length) % allImages.length;
+        
+        // 画像を差し替え
+        imgEl.src = allImages[homeSlideIdx].src;
+        capEl.innerText = allImages[homeSlideIdx].cap;
+
+        // 3. 差し替えた瞬間に不透明度を1に戻す
+        imgEl.style.opacity = 1;
+        capEl.style.opacity = 1;
+    }, 600); // ここをCSSのtransition(0.6s)と完全に一致させるのがポイント
+}
+
+// --- オーバーレイ表示（Overviewにホバー用の構造を追加） ---
 function renderOverlays() {
     let idxH = ''; let ovH = '';
     for (const sec in PROJECT_DATA) {
-        // 全大文字ではなく、頭文字だけ大文字にする (例: Commissioned)
         const title = sec.charAt(0).toUpperCase() + sec.slice(1); 
         
         idxH += `<div class="ov-sec"><h3 class="cat-title">${title}</h3><ul class="idx-list">`;
@@ -94,12 +101,20 @@ function renderOverlays() {
         PROJECT_DATA[sec].forEach(item => {
             const url = `${sec}.html#${item.id}`;
             idxH += `<li><a href="${url}" onclick="closeAll()">${item.cap}</a></li>`;
-            ovH += `<a href="${url}" onclick="closeAll()"><img src="${item.src}"></a>`;
+            
+            // Overviewの画像をコンテナで囲む（キャプションホバー用）
+            ovH += `
+                <a href="${url}" onclick="closeAll()" class="ov-item">
+                    <img src="${item.src}">
+                    <div class="ov-caption">${item.cap}</div>
+                </a>`;
         });
         idxH += `</ul></div>`; ovH += `</div></div>`;
     }
-    document.getElementById('index-dynamic-content').innerHTML = idxH;
-    document.getElementById('overview-dynamic-content').innerHTML = ovH;
+    const idxTarget = document.getElementById('index-dynamic-content');
+    const ovTarget = document.getElementById('overview-dynamic-content');
+    if(idxTarget) idxTarget.innerHTML = idxH;
+    if(ovTarget) ovTarget.innerHTML = ovH;
 }
 
 function openOverlay(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }

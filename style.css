@@ -14,6 +14,15 @@ body {
     -webkit-font-smoothing: antialiased; 
 }
 
+body {
+    animation: fadeInPage 0.8s ease forwards;
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 /* --- Splash Screen --- */
 #splash-screen {
     position: fixed;
@@ -61,6 +70,17 @@ body {
     box-sizing: border-box; 
 }
 #info-content p { margin-bottom: 1.2em; }
+
+.contact-section .label {
+    color: var(--gray);
+    font-size: 0.65em; /* ラベルを少し小さくするとより洗練されます。不要なら削除してください */
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.contact-section p {
+    margin-bottom: 25px; /* 段落間の余白調整 */
+}
+
 .contact-section { margin-top: 60px; }
 .contact-section a { color: inherit; text-decoration: none; }
 
@@ -69,13 +89,90 @@ body {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
     background: var(--bg); z-index: 4000; overflow-y: auto; padding: 120px 40px; box-sizing: border-box; 
 }
+
 .close-btn { position: fixed; top: 35px; right: 40px; cursor: pointer; font-size: 23px; }
 .cat-title { font-size: 14px; color: var(--gray); font-weight: 400; margin-bottom: 30px; letter-spacing: 0.0em; text-transform: none; }
+
 .ov-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; align-items: start; margin-bottom: 70px; }
 .ov-grid img { width: 100%; height: auto; display: block; }
-.idx-list { list-style: none; padding: 0; margin-bottom: 50px; }
-.idx-list li { margin-bottom: 14px; }
-.idx-list a { text-decoration: none; color: var(--gray); font-size: 23px; }
+
+.idx-list { 
+    list-style: none; 
+    padding: 0; 
+    margin-bottom: 50px; /* カテゴリ間の余白を少し詰めました */
+}
+
+.idx-list li { 
+    margin-bottom: 8px; /* ★ここを15pxから8pxに狭めました */
+}
+
+.idx-list a { 
+    text-decoration: none; 
+    color: var(--text); /* ★グレーから「黒」に変更 */
+    font-size: 23px; 
+    transition: color 0.3s;
+}
+
+/* ホバーした時だけ少し薄くする演出を入れると操作感が良くなります */
+.idx-list a, 
+.contact-section a, 
+.nav-links a {
+    transition: color 0.3s ease; /* なめらかな変化 */
+}
+
+.idx-list a:hover, 
+.contact-section a:hover, 
+.nav-links a:hover {
+    color: var(--gray) !important; /* ホバーでグレーに */
+}
+
+.ov-item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: #000; /* 画像が薄くなった時の背景色 */
+}
+
+.ov-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.5s ease;
+}
+
+.ov-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #a0a0a0;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    text-align: center;
+    width: 80%;
+}
+
+/* PCのみホバーを有効化 */
+@media (hover: hover) {
+    .ov-item:hover img {
+        opacity: 0.3;
+    }
+    .ov-item:hover .ov-caption {
+        opacity: 1;
+    }
+}
+
+/* --- リンクのホバー色 --- */
+.idx-list a, .contact-section a, .nav-links a {
+    transition: color 0.3s ease;
+}
+.idx-list a:hover, .contact-section a:hover, .nav-links a:hover {
+    color: var(--gray) !important;
+}
 
 /* --- Hero / Slideshow --- */
 .hero-wrapper { 
@@ -97,8 +194,8 @@ body {
 .area-right::after { transform: rotate(45deg); }
 .click-area:hover::after { opacity: 0.5; }
 
-.hero-image { max-width: 85vw; max-height: 70vh; object-fit: contain; opacity: 1; transition: opacity 1.0s ease-in-out; }
-.hero-caption { margin-top: 25px; font-size: 12px; color: var(--gray); text-align: center; transition: opacity 1.0s ease-in-out; }
+.hero-image { max-width: 85vw; max-height: 70vh; object-fit: contain; opacity: 1; transition: opacity 0.6s ease-in-out; }
+.hero-caption { margin-top: 25px; font-size: 12px; color: var(--gray); text-align: center; transition: opacity 0.6s ease-in-out; }
 
 /* --- Mobile Styles (MAX 768px) --- */
 @media (max-width: 768px) {
@@ -119,29 +216,78 @@ body {
         display: flex !important; 
         gap: 8px; 
         font-size: 18px !important;
-        margin-left: -1px !important; /* IndexのIの視覚的微調整 */
+        margin-left: -1px !important; /* Indexの"I"の視覚的微調整 */
     }
 
-    /* Infoリンクを右端(20px)へ配置 */
+    /* --- Overlay内部の左揃え調整 --- */
+    .overlay-full {
+        padding: 100px 20px !important; /* 左右をナビと同じ20pxに固定 */
+    }
+
+    .cat-title {
+        font-size: 13px;
+        margin-left: 0 !important; /* 左端に寄せる */
+        padding-left: 0 !important;
+        color: var(--gray); /* ここでグレーを維持 */
+        margin-bottom: 15px !important; /* 見出し直後の余白も少し詰めました */
+        text-align: left;
+    }
+
+    .idx-list {
+        padding: 0 !important;
+        margin: 0 0 50px 0 !important;
+        text-align: left;
+    }
+
+    .idx-list li {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        margin-bottom: 6px !important; /* ★モバイルはさらにタイトに（6px） */
+    }
+
+    .idx-list a {
+        display: block;
+        padding-left: 0 !important;
+        font-size: 18px !important; /* ナビのサイズと合わせる */
+        color: var(--text) !important; /* ★モバイルも「黒」に固定 */
+        margin-left: -1px !important; /* Iの文字の余白を補正 */
+    }
+
+    .ov-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); 
+        gap: 3px; 
+        justify-content: start; 
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    /* --- 以下、共通 --- */
     .nav-links { display: flex !important; justify-content: flex-end !important; flex: none !important; }
     #link-commissioned, #link-personal { display: none !important; }
     .nav-links a { font-size: 18px !important; }
 
-    /* Info本文の開始位置をナビの20pxと完全同期 */
     #info-content { 
         padding: 100px 20px !important; 
         font-size: 18px !important; 
-        line-height: 1.0 !important; 
+        line-height: 1.2 !important; /* 1.0だと詰まりすぎるため1.2を推奨 */
         max-width: 100% !important; 
         box-sizing: border-box !important;
     }
-    .info-text { margin: 0 !important; text-align: left !important; }
-    .info-text p { 
-        margin-left: 0 !important; 
-        padding-left: 0 !important; 
-        margin-bottom: 1.2em !important;
+
+    /* モバイルでのラベル調整 */
+    .contact-section .label {
+        font-size: 13px !important; /* モバイルで見やすいサイズ */
+        color: var(--gray) !important;
     }
 
-    .ov-grid { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+    .contact-section a {
+        font-size: 18px !important;
+        color: var(--text) !important;
+    }
+
+    .info-text { margin: 0 !important; text-align: left !important; }
+    .info-text p { margin-left: 0 !important; padding-left: 0 !important; margin-bottom: 1.2em !important; }
+
     .close-btn { top: 20px; right: 20px; font-size: 18px; }
 }
