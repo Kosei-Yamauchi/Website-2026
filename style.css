@@ -30,9 +30,9 @@ body {
     height: 100%;
     background-color: #000;
     z-index: 9999;
-    display: none; /* JSで flex に切り替え */
+    display: none; 
     
-    /* 子要素（ロゴ）を垂直方向の中央に配置 */
+    /* PC設定: 垂直中央 / 左端 40px */
     align-items: center; 
     justify-content: flex-start;
 }
@@ -40,10 +40,6 @@ body {
 .splash-logo { 
     color: #fff; 
     font-family: var(--font-sans);
-    text-transform: none;
-    line-height: 1;
-    
-    /* PC設定: ナビバーの左余白 40px に合わせる */
     padding-left: 40px; 
     font-size: 23px; 
     letter-spacing: 0.0em; 
@@ -56,21 +52,27 @@ body {
     pointer-events: none; 
 }
 
-/* --- Mobile Styles (Splash) --- */
+/* --- Mobile Styles (Splash / Navigation Alignment) --- */
 @media (max-width: 768px) {
     #splash-screen {
-        /* モバイルでも垂直中央を維持 */
-        align-items: center; 
+        /* ★垂直中央を解除し、上端（左上）を基準にする */
+        align-items: flex-start; 
+        padding-top: 20px; /* ナビバー内のテキスト位置に合わせるための調整 */
     }
 
     .splash-logo {
-        /* モバイル設定: ナビバーの左余白 20px に合わせ、サイズを16pxへ */
+        /* ★モバイル設定: 左端 20px / サイズ 16px */
         padding-left: 20px;
         font-size: 16px; 
-        letter-spacing: 0.01em; /* 小さい文字なので僅かに広げると綺麗です */
-        color: var(--gray);
+        letter-spacing: 0.01em;
+        
+        /* ナビゲーションバーの高さ（60px）の中で、
+           テキストがどのあたりにあるかに合わせて微調整してください。
+           もし少し高い・低いと感じる場合は、ここの margin-top を変えます。 */
+        margin-top: -2px; 
     }
 }
+
 /* --- Navbar --- */
 .navbar {
     position: fixed; top: 0; left: 0; width: 100%; height: 100px;
