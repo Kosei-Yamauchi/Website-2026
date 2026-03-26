@@ -48,7 +48,7 @@ body {
 /* スプラッシュのフェードアウトアニメーション（1.5秒かけて低速に） */
 .fade-out { 
     opacity: 0; 
-    transition: opacity 1.5s ease; 
+    transition: opacity 2.5s ease-in-out; 
     pointer-events: none; 
 }
 
@@ -69,7 +69,7 @@ body {
         /* ナビゲーションバーの高さ（60px）の中で、
            テキストがどのあたりにあるかに合わせて微調整してください。
            もし少し高い・低いと感じる場合は、ここの margin-top を変えます。 */
-        margin-top: -5px;
+        margin-top: -6px;
     }
 }
 
