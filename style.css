@@ -57,7 +57,7 @@ body {
     #splash-screen {
         /* ★垂直中央を解除し、上端（左上）を基準にする */
         align-items: flex-start; 
-        padding-top: 25px; /* ナビバー内のテキスト位置に合わせるための調整 */
+        padding-top: 24px; /* ナビバー内のテキスト位置に合わせるための調整 */
     }
 
     .splash-logo {
@@ -69,7 +69,7 @@ body {
         /* ナビゲーションバーの高さ（60px）の中で、
            テキストがどのあたりにあるかに合わせて微調整してください。
            もし少し高い・低いと感じる場合は、ここの margin-top を変えます。 */
-        margin-top: -2.0px;
+        margin-top: 0px;
     }
 }
 
