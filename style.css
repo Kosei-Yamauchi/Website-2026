@@ -30,46 +30,47 @@ body {
     height: 100%;
     background-color: #000;
     z-index: 9999;
-    display: none; 
+    display: flex;             /* 常に中央揃えを有効にするために flex */
     
-    /* PC設定: 垂直中央 / 左端 40px */
+    /* ★ 垂直方向の中央に配置 */
     align-items: center; 
-    justify-content: flex-start;
+    /* 左端から並べる */
+    justify-content: flex-start; 
 }
 
 .splash-logo { 
     color: #fff; 
     font-family: var(--font-sans);
+    text-transform: none;
+    line-height: 1;
+    
+    /* PC設定: ナビバーの左余白 40px に合わせる */
     padding-left: 40px; 
     font-size: 23px; 
     letter-spacing: 0.0em; 
 }
 
-/* スプラッシュのフェードアウトアニメーション（1.5秒かけて低速に） */
+/* スプラッシュのフェードアウト（2.0s でゆったりと） */
 .fade-out { 
     opacity: 0; 
     transition: opacity 2.5s ease-in-out; 
     pointer-events: none; 
 }
 
-/* --- Mobile Styles (Splash / Navigation Alignment) --- */
+/* --- Mobile Styles (Splash / Vertical Center) --- */
 @media (max-width: 768px) {
     #splash-screen {
-        /* ★垂直中央を解除し、上端（左上）を基準にする */
-        align-items: flex-start; 
-        padding-top: 22px; /* ナビバー内のテキスト位置に合わせるための調整 */
+        /* ★ モバイルでも垂直中央を維持（flex-start から変更） */
+        align-items: center; 
+        padding-top: 0; /* 上の余白をリセット */
     }
 
     .splash-logo {
-        /* ★モバイル設定: 左端 20px / サイズ 16px */
+        /* ★ モバイル設定: 左余白 20px / サイズ 16px */
         padding-left: 20px;
         font-size: 16px; 
         letter-spacing: 0.01em;
-        
-        /* ナビゲーションバーの高さ（60px）の中で、
-           テキストがどのあたりにあるかに合わせて微調整してください。
-           もし少し高い・低いと感じる場合は、ここの margin-top を変えます。 */
-        margin-top: -5px;
+        margin-top: 0; /* 位置調整をリセット */
     }
 }
 
