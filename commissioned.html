@@ -14,7 +14,7 @@
                 <div class="click-area area-right" onclick="nextSlide()"></div>
             </div>
             
-            <img id="slide-img" src="" class="hero-image" style="transition: opacity 0.3s;">
+            <img id="slide-img" src="" class="hero-image">
             <p id="slide-cap" class="hero-caption"></p>
         </div>
     </main>
@@ -23,25 +23,28 @@
     <script src="script.js"></script>
     
     <script>
-        // PROJECT_DATA が data.js から正しく読み込まれている必要があります
-        const category = window.location.pathname.includes("personal") ? "personal" : "commissioned";
+        // 1. カテゴリの自動判定
+        const isPersonal = window.location.pathname.includes("personal");
+        const category = isPersonal ? "personal" : "commissioned";
         const images = PROJECT_DATA[category];
         let idx = 0;
 
+        // 2. スライドの更新（演出を一切排除）
         function updateSlide() {
             const imgEl = document.getElementById('slide-img');
             const capEl = document.getElementById('slide-cap');
             
-            if (!imgEl || !images) return;
+            if (!imgEl || !images || !images[idx]) return;
 
-            imgEl.style.opacity = 0;
-            setTimeout(() => {
-                imgEl.src = images[idx].src;
-                capEl.innerText = images[idx].cap;
-                imgEl.style.opacity = 1;
-            }, 200);
+            // 完全に演出をオフにするためのリセット
+            imgEl.style.transition = 'none';
+            imgEl.style.opacity = '1';
+            
+            imgEl.src = images[idx].src;
+            capEl.innerText = images[idx].cap;
         }
 
+        // 3. ナビゲーション関数
         function nextSlide() {
             idx = (idx + 1) % images.length;
             updateSlide();
@@ -52,13 +55,23 @@
             updateSlide();
         }
 
-        // ページ読み込み時の処理
-        // script.js の initApp と競合しないよう、少し遅らせるかイベントリスナーを使います
+        // 4. 初期読み込み（Indexからの遷移 & ハッシュ対応）
         window.addEventListener('load', () => {
+            const params = new URLSearchParams(window.location.search);
             const hash = window.location.hash.replace('#', '');
-            const found = images.findIndex(i => i.id === hash);
-            if(found !== -1) idx = found;
+            
+            // ?id= または #ID からターゲットを探す
+            const targetId = params.get('id') || hash;
+            const found = images.findIndex(i => i.id === targetId);
+            
+            if (found !== -1) idx = found;
             updateSlide();
+        });
+
+        // キーボード操作（左右キー）も追加しておくと親切です
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight") nextSlide();
+            if (e.key === "ArrowLeft") prevSlide();
         });
     </script>
 </body>

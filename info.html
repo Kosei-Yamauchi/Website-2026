@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Info | KOSEI YAMAUCHI</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main id="info-content">
         <div class="info-text">
-            <p>KOSEI YAMAUCHI is a Tokyo-based photographer whose practice is rooted in visual narratives derived from documentation.</p>
-            <p>Interweaving nature, architecture, and portraiture, his work explores a multifaceted perspective to uncover the quiet stories within the frame.</p>
-            
+
+            <div class="info-about">
+            <div class="lang-en">
+                <p class="info-name">KOSEI YAMAUCHI</p>
+                <p>is a Tokyo-based photographer whose practice is rooted in visual narratives derived from documentation.</p>
+                <p>Interweaving nature, architecture, and portraiture, his work explores a multifaceted perspective to uncover the quiet stories within the frame.</p>
+            </div>
+
+            <div class="lang-jp" style="display: none;">
+                <p class="info-name-jp">KOSEI YAMAUCHI</p>
+                <p>写真家。</p>
+                <p>多摩美術大学、Art Center College of Design、The Eugene Studioを経てThe North Face Japan, Goldwinに所属後、独立。</p>
+                <p>ランドスケープ写真やポートレイトを軸に、自然、スポーツ、アート、ビューティー、建築、音楽などの領域で活動。</p>
+            </div>
+        </div>
+
+        <div class="lang-switcher">
+            <span id="btn-en" class="lang-btn active" onclick="switchLang('en')">EN</span> / 
+            <span id="btn-jp" class="lang-btn" onclick="switchLang('jp')">JP</span>
+        </div>
+
             <div class="contact-section">
                 <p><span class="label">Contact:</span><br>
                 <a href="mailto:info@kosei-yamauchi.com">info@kosei-yamauchi.com</a></p>

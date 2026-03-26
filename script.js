@@ -8,26 +8,33 @@ async function initApp() {
         
         const path = window.location.pathname.split("/").pop() || "index.html";
         
-        // --- スプラッシュ画面の制御 ---
         const splash = document.getElementById('splash-screen');
         if (!sessionStorage.getItem('splashed')) {
-            splash.style.display = 'flex';
-            setTimeout(() => {
-                splash.classList.add('fade-out');
-                setTimeout(() => { splash.style.display = 'none'; }, 1500);
-            }, 800);
+            if (splash) {
+                splash.style.display = 'flex';
+                setTimeout(() => {
+                    splash.classList.add('fade-out');
+                    setTimeout(() => { splash.style.display = 'none'; }, 1500);
+                }, 800);
+            }
             sessionStorage.setItem('splashed', 'true');
-        } else {
+        } else if (splash) {
             splash.style.display = 'none';
         }
 
         renderOverlays();
         if (path === "index.html" || path === "") renderHome();
         
+        // クローズボタンへのイベントリスナー強制登録（HTMLのonclickが効かない場合の保険）
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('close-btn')) {
+                closeAll();
+            }
+        });
+        
     } catch (e) { console.error(e); }
 }
 
-// --- ホーム画面(index.html)のスライドショー制御 ---
 let homeSlideIdx = 0;
 let homeSlideTimer = null;
 const allImages = [...PROJECT_DATA.commissioned, ...PROJECT_DATA.personal];
@@ -36,80 +43,98 @@ function renderHome() {
     const main = document.getElementById('main-content');
     if (!main || allImages.length === 0) return;
 
-    // クリックエリア（左右）をHTMLに追加
     main.innerHTML = `
         <div class="hero-wrapper">
             <div class="slide-controls">
                 <div class="click-area area-left" id="prev-slide"></div>
                 <div class="click-area area-right" id="next-slide"></div>
             </div>
-            <img id="home-slide-img" src="${allImages[0].src}" class="hero-image" style="opacity: 1; transition: opacity 1.0s ease-in-out;">
-            <p id="home-slide-cap" class="hero-caption" style="opacity: 1; transition: opacity 1.0s ease-in-out;">${allImages[0].cap}</p>
+            <img id="home-slide-img" src="${allImages[0].src}" class="hero-image" style="opacity: 1;">
+            <p id="home-slide-cap" class="hero-caption" style="opacity: 1;">${allImages[0].cap}</p>
         </div>
     `;
 
-    // イベントリスナー登録
     document.getElementById('prev-slide').addEventListener('click', () => manualChange(-1));
     document.getElementById('next-slide').addEventListener('click', () => manualChange(1));
-
     startTimer();
 }
 
 function startTimer() {
     if (homeSlideTimer) clearInterval(homeSlideTimer);
-    homeSlideTimer = setInterval(() => changeSlide(1), 5000); // 5秒ごとに自動切り替え
+    homeSlideTimer = setInterval(() => changeSlide(1), 5000);
 }
 
 function manualChange(direction) {
-    clearInterval(homeSlideTimer); // 手動クリック時はタイマーをリセット
-    changeSlide(direction);
-    startTimer(); // 再開
+    clearInterval(homeSlideTimer);
+    
+    // 手動クリック時は、アニメーションなしで即座に切り替える
+    changeSlide(direction, true); // 第2引数に true を渡す
+    
+    startTimer();
 }
 
-function changeSlide(direction) {
+// direction: 進む方向, isManual: 手動かどうか（デフォルトはfalse）
+function changeSlide(direction, isManual = false) {
     const imgEl = document.getElementById('home-slide-img');
     const capEl = document.getElementById('home-slide-cap');
     if(!imgEl) return;
 
-    // 1. まず完全に透明にする（0.6sのTransitionが効く）
-    imgEl.style.opacity = 0;
-    capEl.style.opacity = 0;
-
-    // 2. CSSのtransition時間（0.6s）と同じタイミングで中身を入れ替える
-    setTimeout(() => {
-        homeSlideIdx = (homeSlideIdx + direction + allImages.length) % allImages.length;
+    if (isManual) {
+        // --- 手動切り替え（演出なし・即時） ---
+        // 1. アニメーションを一時的に無効化
+        imgEl.style.transition = 'none';
+        capEl.style.transition = 'none';
         
-        // 画像を差し替え
+        // 2. インデックスを更新して中身を入れ替え
+        homeSlideIdx = (homeSlideIdx + direction + allImages.length) % allImages.length;
         imgEl.src = allImages[homeSlideIdx].src;
         capEl.innerText = allImages[homeSlideIdx].cap;
-
-        // 3. 差し替えた瞬間に不透明度を1に戻す
+        
+        // 3. 透明度を1（表示）に固定
         imgEl.style.opacity = 1;
         capEl.style.opacity = 1;
-    }, 600); // ここをCSSのtransition(0.6s)と完全に一致させるのがポイント
+
+        // 次回のアニメーションのために、少し遅らせて transition を戻しておく
+        setTimeout(() => {
+            imgEl.style.transition = 'opacity 0.6s ease-in-out';
+            capEl.style.transition = 'opacity 0.6s ease-in-out';
+        }, 50);
+
+    } else {
+        // --- 自動スライドショー（現在のなめらかな切り替えを継続） ---
+        imgEl.style.opacity = 0;
+        capEl.style.opacity = 0;
+
+        setTimeout(() => {
+            homeSlideIdx = (homeSlideIdx + direction + allImages.length) % allImages.length;
+            imgEl.src = allImages[homeSlideIdx].src;
+            capEl.innerText = allImages[homeSlideIdx].cap;
+
+            imgEl.style.opacity = 1;
+            capEl.style.opacity = 1;
+        }, 400); 
+    }
 }
 
-// --- オーバーレイ表示（Overviewにホバー用の構造を追加） ---
 function renderOverlays() {
     let idxH = ''; let ovH = '';
     for (const sec in PROJECT_DATA) {
         const title = sec.charAt(0).toUpperCase() + sec.slice(1); 
         
-        idxH += `<div class="ov-sec"><h3 class="cat-title">${title}</h3><ul class="idx-list">`;
         ovH += `<div class="ov-sec"><h3 class="cat-title">${title}</h3><div class="ov-grid">`;
-        
         PROJECT_DATA[sec].forEach(item => {
-            const url = `${sec}.html#${item.id}`;
-            idxH += `<li><a href="${url}" onclick="closeAll()">${item.cap}</a></li>`;
-            
-            // Overviewの画像をコンテナで囲む（キャプションホバー用）
+            const url = `${sec}.html?id=${item.id}`;
             ovH += `
                 <a href="${url}" onclick="closeAll()" class="ov-item">
                     <img src="${item.src}">
                     <div class="ov-caption">${item.cap}</div>
                 </a>`;
         });
-        idxH += `</ul></div>`; ovH += `</div></div>`;
+        ovH += `</div></div>`;
+
+        idxH += `<div class="ov-sec"><h3 class="cat-title">${title}</h3><ul class="idx-list">`;
+        idxH += genGroupedList(PROJECT_DATA[sec], sec);
+        idxH += `</ul></div>`;
     }
     const idxTarget = document.getElementById('index-dynamic-content');
     const ovTarget = document.getElementById('overview-dynamic-content');
@@ -117,8 +142,57 @@ function renderOverlays() {
     if(ovTarget) ovTarget.innerHTML = ovH;
 }
 
-function openOverlay(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
-function closeOverlay(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
-function closeAll() { document.querySelectorAll('.overlay-full').forEach(e => e.style.display = 'none'); document.body.style.overflow = 'auto'; }
+function genGroupedList(data, type) {
+    const groups = {};
+    data.forEach(item => {
+        const name = item.project || "Untitled";
+        if (!groups[name]) groups[name] = [];
+        groups[name].push(item);
+    });
+
+    return Object.keys(groups).map(name => {
+        const count = groups[name].length;
+        const firstId = groups[name][0].id;
+        return `
+            <li>
+                <a href="${type}.html?id=${firstId}" onclick="closeAll()">
+                    <span class="idx-name">${name}</span>
+                    <span class="idx-count">${count}</span>
+                </a>
+            </li>`;
+    }).join('');
+}
+
+function openOverlay(id) { 
+    const el = document.getElementById(id);
+    if(el) {
+        el.style.display = 'block'; 
+        document.body.style.overflow = 'hidden'; 
+    }
+}
+
+function closeAll() { 
+    document.querySelectorAll('.overlay-full').forEach(e => e.style.display = 'none'); 
+    document.body.style.overflow = 'auto'; 
+}
+
+function switchLang(lang) {
+    const enContent = document.querySelector('.lang-en');
+    const jpContent = document.querySelector('.lang-jp');
+    const btnEn = document.getElementById('btn-en');
+    const btnJp = document.getElementById('btn-jp');
+
+    if (lang === 'jp') {
+        enContent.style.display = 'none';
+        jpContent.style.display = 'block';
+        btnJp.classList.add('active');
+        btnEn.classList.remove('active');
+    } else {
+        enContent.style.display = 'block';
+        jpContent.style.display = 'none';
+        btnEn.classList.add('active');
+        btnJp.classList.remove('active');
+    }
+}
 
 window.addEventListener('DOMContentLoaded', initApp);

@@ -3,18 +3,16 @@
     --bg: #fdfdfd;
     --gray: #a0a0a0;
     --text: #1a1a1a;
-    --font: 'Suisse BP Int\'l', sans-serif;
+    --font-sans: 'Suisse BP Int\'l', sans-serif; /* ロゴ・名前・Index用 */
+    --font-serif: 'EB Garamond', serif;          /* 本文・キャプション用 */
 }
 
 body { 
     margin: 0; 
     background: var(--bg); 
     color: var(--text); 
-    font-family: var(--font); 
-    -webkit-font-smoothing: antialiased; 
-}
-
-body {
+    font-family: var(--font-sans); 
+    -webkit-font-smoothing: antialiased;
     animation: fadeInPage 0.8s ease forwards;
 }
 
@@ -38,7 +36,7 @@ body {
 .splash-logo { color: #fff; font-size: 23px; letter-spacing: 0.0em; text-transform: none; }
 .fade-out { opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
 
-/* --- Navbar (PC) --- */
+/* --- Navbar --- */
 .navbar {
     position: fixed; top: 0; left: 0; width: 100%; height: 100px;
     display: flex; align-items: center; padding: 0 40px; 
@@ -47,7 +45,7 @@ body {
 
 .logo { 
     flex: 1; text-align: left; text-decoration: none; color: var(--text); 
-    font-size: 23px; letter-spacing: 0.0em; white-space: nowrap; 
+    font-size: 23px; letter-spacing: 0.0em; white-space: nowrap; font-family: var(--font-sans);
 }
 
 .nav-switcher {
@@ -55,13 +53,12 @@ body {
     display: flex; align-items: center; gap: 10px; font-size: 23px; white-space: nowrap;
 }
 
-.nav-divider-horizontal { color: #e0e0e0; font-weight: 400; margin: 0 0px; user-select: none; }
-
 .nav-links { flex: 1; display: flex; justify-content: flex-end; list-style: none; gap: 25px; margin: 0; padding: 0; }
-.nav-links a { text-decoration: none; color: var(--text); font-size: 23px; }
+.nav-links a { text-decoration: none; color: var(--text); font-size: 23px; transition: color 0.3s ease; }
 .nav-links a.active { color: var(--gray); pointer-events: none; }
+.nav-links a:hover { color: var(--gray) !important; }
 
-/* --- Info Content (PC) --- */
+/* --- Info Content --- */
 #info-content { 
     padding: 140px 40px; 
     max-width: 850px; 
@@ -69,29 +66,32 @@ body {
     font-size: 23px; 
     box-sizing: border-box; 
 }
-#info-content p { margin-bottom: 1.2em; }
 
-    /* --- Copyright Style --- */
-    .copyright {
-    margin-top: 90px; /* コンタクトセクションから十分に距離を置く */
-    color: var(--gray);
-    font-size: 14px; /* かなり小さく設定 */
-    letter-spacing: 0.02em;
-    opacity: 1; /* さらに存在感を薄くする */
+.info-about { 
+    font-family: var(--font-serif) !important; 
 }
 
-.contact-section .label {
-    color: var(--gray);
-    font-size: 0.65em; /* ラベルを少し小さくするとより洗練されます。不要なら削除してください */
-    display: inline-block;
-    margin-bottom: 5px;
-}
-.contact-section p {
-    margin-bottom: 25px; /* 段落間の余白調整 */
+.info-name { 
+    font-family: var(--font-sans) !important; 
 }
 
 .contact-section { margin-top: 60px; }
-.contact-section a { color: inherit; text-decoration: none; }
+.contact-section a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+.contact-section a:hover { color: var(--gray) !important; }
+
+.contact-section .label {
+    color: var(--gray);
+    font-size: 0.65em;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.copyright {
+    margin-top: 90px;
+    color: var(--gray);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+}
 
 /* --- Overlays --- */
 .overlay-full { 
@@ -99,89 +99,38 @@ body {
     background: var(--bg); z-index: 4000; overflow-y: auto; padding: 120px 40px; box-sizing: border-box; 
 }
 
-.close-btn { position: fixed; top: 35px; right: 40px; cursor: pointer; font-size: 23px; }
-.cat-title { font-size: 14px; color: var(--gray); font-weight: 400; margin-bottom: 30px; letter-spacing: 0.0em; text-transform: none; }
-
-.ov-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; align-items: start; margin-bottom: 70px; }
-.ov-grid img { width: 100%; height: auto; display: block; }
-
-.idx-list { 
-    list-style: none; 
-    padding: 0; 
-    margin-bottom: 50px; /* カテゴリ間の余白を少し詰めました */
+.close-btn { 
+    position: fixed; top: 35px; right: 40px; cursor: pointer; 
+    font-size: 23px; z-index: 5000; font-family: var(--font-sans);
 }
 
-.idx-list li { 
-    margin-bottom: 8px; /* ★ここを15pxから8pxに狭めました */
-}
+.cat-title { font-size: 14px; color: var(--gray); font-weight: 400; margin-bottom: 30px; }
 
-.idx-list a { 
-    text-decoration: none; 
-    color: var(--text); /* ★グレーから「黒」に変更 */
-    font-size: 23px; 
-    transition: color 0.3s;
-}
-
-/* ホバーした時だけ少し薄くする演出を入れると操作感が良くなります */
-.idx-list a, 
-.contact-section a, 
-.nav-links a {
-    transition: color 0.3s ease; /* なめらかな変化 */
-}
-
-.idx-list a:hover, 
-.contact-section a:hover, 
-.nav-links a:hover {
-    color: var(--gray) !important; /* ホバーでグレーに */
-}
-
-.ov-item {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    background: #000; /* 画像が薄くなった時の背景色 */
-}
-
-.ov-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: opacity 0.5s ease;
-}
-
+/* --- Overview Grid --- */
+.ov-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 70px; }
+.ov-item { position: relative; display: block; overflow: hidden; background: var(--bg); }
+.ov-item img { width: 100%; height: auto; display: block; transition: opacity 0.5s ease; }
 .ov-caption {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #a0a0a0;
-    font-size: 10px;
-    letter-spacing: 0.02em;
-    text-transform: none;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-    text-align: center;
-    width: 80%;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    color: var(--gray); font-size: 10px; opacity: 0; transition: opacity 0.5s ease;
+    text-align: center; width: 80%; font-family: var(--font-serif);
 }
 
-/* PCのみホバーを有効化 */
 @media (hover: hover) {
-    .ov-item:hover img {
-        opacity: 0.3;
-    }
-    .ov-item:hover .ov-caption {
-        opacity: 1;
-    }
+    .ov-item:hover img { opacity: 0.3; }
+    .ov-item:hover .ov-caption { opacity: 1; }
 }
 
-/* --- リンクのホバー色 --- */
-.idx-list a, .contact-section a, .nav-links a {
-    transition: color 0.3s ease;
+/* --- Index List --- */
+.idx-list { list-style: none; padding: 0; margin: 0 0 50px 0; max-width: 500px; }
+.idx-list li { margin-bottom: 8px; }
+.idx-list a {
+    display: flex; justify-content: space-between; align-items: baseline;
+    text-decoration: none; color: var(--text); font-size: 23px;
+    font-family: var(--font-sans); transition: color 0.3s;
 }
-.idx-list a:hover, .contact-section a:hover, .nav-links a:hover {
-    color: var(--gray) !important;
-}
+.idx-list a:hover { color: var(--gray) !important; }
+.idx-count { color: var(--gray); font-size: 18px; margin-left: 20px; font-variant-numeric: tabular-nums; }
 
 /* --- Hero / Slideshow --- */
 .hero-wrapper { 
@@ -192,7 +141,7 @@ body {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
     width: 85vw; height: 70vh; display: flex; z-index: 10; 
 }
-.click-area { flex: 1; cursor: pointer; display: flex; align-items: center; transition: opacity 0.3s; }
+.click-area { flex: 1; cursor: pointer; display: flex; align-items: center; }
 .click-area::after { 
     content: ''; width: 10px; height: 10px; border-top: 1px solid var(--gray); 
     border-right: 1px solid var(--gray); opacity: 0; transition: opacity 0.3s; 
@@ -204,112 +153,118 @@ body {
 .click-area:hover::after { opacity: 0.5; }
 
 .hero-image { max-width: 85vw; max-height: 70vh; object-fit: contain; opacity: 1; transition: opacity 0.6s ease-in-out; }
-.hero-caption { margin-top: 25px; font-size: 12px; color: var(--gray); text-align: center; transition: opacity 0.6s ease-in-out; }
+.hero-caption { 
+    margin-top: 12px; font-size: 11px; color: var(--gray); text-align: center; 
+    transition: opacity 0.6s ease-in-out; font-family: var(--font-serif);
+}
 
-/* --- Mobile Styles (MAX 768px) --- */
+/* 言語スイッチのスタイル */
+.lang-switcher {
+    margin-top: 40px;
+    font-size: 14px;
+    color: var(--gray);
+    font-family: var(--font-sans);
+}
+
+.lang-btn {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.lang-btn.active {
+    color: var(--text); /* 選択されている方を黒くする */
+    pointer-events: none;
+}
+
+.lang-btn:hover {
+    color: var(--text);
+}
+
+/* --- Language Specific Styles --- */
+
+/* 英語（既存のサイズを維持） */
+.lang-en {
+    font-size: 23px;
+    line-height: 1.1;
+}
+
+/* 日本語（サイズを小さく、文字間と行間を微調整） */
+.lang-jp {
+    font-size: 18px;             /* ★サイズを小さく */
+    line-height: 1.1;             /* ★日本語は少し広めの行間が美しい */
+    letter-spacing: 0.01em;       /* ★わずかに文字間をあけて可読性を確保 */
+    font-family: "Yu Mincho", "MS Mincho", serif; /* きれいな明朝体指定 */
+}
+
+/* 日本語時の名前（英字より少しだけ大きく、でも全体とは調和させる） */
+.info-name-jp {
+    font-family: var(--font-sans);
+    font-size: 23px;
+    margin-bottom: 1.8em;
+    letter-spacing: 0.0em;
+}
+
+/* --- Mobile Styles --- */
 @media (max-width: 768px) {
     .navbar { 
         height: 60px; 
         padding: 0 20px !important; 
-        display: flex !important; 
-        justify-content: space-between !important; 
-        align-items: center; 
+        justify-content: space-between !important;
     }
-    .navbar .logo { display: none !important; }
+    
+    /* モバイルではロゴを非表示 */
+    .logo { display: none !important; }
 
-    /* Index — Overview を左端(20px)へ配置 */
+    /* モバイルのスイッチ（左寄せ） */
     .nav-switcher { 
         position: static !important; 
         transform: none !important; 
-        left: auto !important; 
+        font-size: 16px !important; 
+    }
+
+    /* モバイルの右側（Infoのみ表示） */
+    .nav-links { 
         display: flex !important; 
-        gap: 8px; 
-        font-size: 18px !important;
-        margin-left: -1px !important; /* Indexの"I"の視覚的微調整 */
+        justify-content: flex-end !important; 
     }
 
-    /* --- Overlay内部の左揃え調整 --- */
-    .overlay-full {
-        padding: 100px 20px !important; /* 左右をナビと同じ20pxに固定 */
+    /* 不要なリンクを物理的に排除 */
+    #link-commissioned, 
+    #link-personal { 
+        display: none !important; 
+        visibility: hidden !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        width: 0 !important;
     }
 
-    .cat-title {
-        font-size: 13px;
-        margin-left: 0 !important; /* 左端に寄せる */
-        padding-left: 0 !important;
-        color: var(--gray); /* ここでグレーを維持 */
-        margin-bottom: 15px !important; /* 見出し直後の余白も少し詰めました */
-        text-align: left;
-    }
-
-    .idx-list {
-        padding: 0 !important;
-        margin: 0 0 50px 0 !important;
-        text-align: left;
-    }
-
-    .idx-list li {
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-        margin-bottom: 6px !important; /* ★モバイルはさらにタイトに（6px） */
-    }
-
-    .idx-list a {
-        display: block;
-        padding-left: 0 !important;
-        font-size: 18px !important; /* ナビのサイズと合わせる */
-        color: var(--text) !important; /* ★モバイルも「黒」に固定 */
-        margin-left: -1px !important; /* Iの文字の余白を補正 */
-    }
-
-    .ov-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); 
-        gap: 3px; 
-        justify-content: start; 
-        margin-left: 0 !important;
-        width: 100%;
-    }
-
-    /* --- 以下、共通 --- */
-    .nav-links { display: flex !important; justify-content: flex-end !important; flex: none !important; }
-    #link-commissioned, #link-personal { display: none !important; }
-    .nav-links a { font-size: 18px !important; }
-
-    #info-content { 
-        padding: 100px 20px !important; 
-        font-size: 18px !important; 
-        line-height: 1.2 !important; /* 1.0だと詰まりすぎるため1.2を推奨 */
-        max-width: 100% !important; 
-        box-sizing: border-box !important;
-    }
+    .nav-links a { font-size: 16px !important; }
     
-    .copyright {
-        margin-top: 60px !important; /* モバイルでは余白を少し詰める */
-        font-size: 13px !important; /* スマホでも主張しすぎないサイズ */
-    }
-
-    /* モバイルでのラベル調整 */
-    .contact-section .label {
-        font-size: 13px !important; /* モバイルで見やすいサイズ */
-        color: var(--gray) !important;
-    }
-
-    .contact-section a {
-        font-size: 18px !important;
-        color: var(--text) !important;
-    }
-
-    .info-text { margin: 0 !important; text-align: left !important; }
-    .info-text p { margin-left: 0 !important; padding-left: 0 !important; margin-bottom: 1.2em !important; }
-
-    .close-btn { top: 20px; right: 20px; font-size: 18px; }
-
-    .click-area::after {
-        display: none !important; /* スマホでは矢印を完全に消去 */
-    }
+    .close-btn { top: 20px; right: 20px; font-size: 16px; }
     
-    .area-left, .area-right {
-        padding: 0 !important; /* 余計なパディングもリセット */
+    .overlay-full { padding: 100px 20px !important; }
+    .cat-title { font-size: 12px; margin-bottom: 15px !important; }
+    .idx-list { max-width: 100%; }
+    .idx-list a { font-size: 16px !important; margin-left: -1px; }
+    .idx-count { font-size: 12px; }
+    
+    .ov-grid { grid-template-columns: repeat(5, 1fr); gap: 3px; }
+    
+    #info-content { padding: 100px 20px !important; font-size: 16px !important; line-height: 1.2 !important; }
+    .copyright { margin-top: 60px !important; font-size: 12px !important; }
+    
+    .click-area::after { display: none !important; }
+
+    /* モバイル対応 */
+    .lang-switcher {
+        margin-top: 30px;
+        font-size: 12px;
     }
+    .lang-en { font-size: 16px; }
+    .lang-jp { 
+        font-size: 13px;          /* ★モバイルでも英語より一回り小さく */
+        line-height: 1.1;
+    }
+    .info-name-jp { font-size: 16px; }
+
 }

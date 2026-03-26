@@ -3,32 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal | KOSEI YAMAUCHI</title>
+    <title>KOSEI YAMAUCHI</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main id="main-content">
-        <div class="hero-wrapper" onclick="nextSlide()">
+        <div class="hero-wrapper">
+            <div class="slide-controls">
+                <div class="click-area area-left" onclick="prevSlide()"></div>
+                <div class="click-area area-right" onclick="nextSlide()"></div>
+            </div>
+            
             <img id="slide-img" src="" class="hero-image">
             <p id="slide-cap" class="hero-caption"></p>
         </div>
     </main>
+
     <script src="data.js"></script>
     <script src="script.js"></script>
+    
     <script>
-        const images = PROJECT_DATA.personal;
+        // 1. カテゴリの自動判定
+        const isPersonal = window.location.pathname.includes("personal");
+        const category = isPersonal ? "personal" : "commissioned";
+        const images = PROJECT_DATA[category];
         let idx = 0;
+
+        // 2. スライドの更新（演出を一切排除）
         function updateSlide() {
-            document.getElementById('slide-img').src = images[idx].src;
-            document.getElementById('slide-cap').innerText = images[idx].cap;
+            const imgEl = document.getElementById('slide-img');
+            const capEl = document.getElementById('slide-cap');
+            
+            if (!imgEl || !images || !images[idx]) return;
+
+            // 完全に演出をオフにするためのリセット
+            imgEl.style.transition = 'none';
+            imgEl.style.opacity = '1';
+            
+            imgEl.src = images[idx].src;
+            capEl.innerText = images[idx].cap;
         }
-        function nextSlide() { idx = (idx + 1) % images.length; updateSlide(); }
-        window.onload = () => {
-            const hash = window.location.hash.replace('#', '');
-            const found = images.findIndex(i => i.id === hash);
-            if(found !== -1) idx = found;
+
+        // 3. ナビゲーション関数
+        function nextSlide() {
+            idx = (idx + 1) % images.length;
             updateSlide();
         }
+
+        function prevSlide() {
+            idx = (idx - 1 + images.length) % images.length;
+            updateSlide();
+        }
+
+        // 4. 初期読み込み（Indexからの遷移 & ハッシュ対応）
+        window.addEventListener('load', () => {
+            const params = new URLSearchParams(window.location.search);
+            const hash = window.location.hash.replace('#', '');
+            
+            // ?id= または #ID からターゲットを探す
+            const targetId = params.get('id') || hash;
+            const found = images.findIndex(i => i.id === targetId);
+            
+            if (found !== -1) idx = found;
+            updateSlide();
+        });
+
+        // キーボード操作（左右キー）も追加しておくと親切です
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight") nextSlide();
+            if (e.key === "ArrowLeft") prevSlide();
+        });
     </script>
 </body>
 </html>
