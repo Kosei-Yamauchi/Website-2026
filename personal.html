@@ -33,15 +33,26 @@
         function updateSlide() {
             const imgEl = document.getElementById('slide-img');
             const capEl = document.getElementById('slide-cap');
-            
             if (!imgEl || !images || !images[idx]) return;
 
-            // 完全に演出をオフにするためのリセット
+            const currentItem = images[idx];
+
+            // --- ★新しいキャプション生成ロジック ---
+            const project = currentItem.project || "Untitled";
+    
+            // このカテゴリ（images）内で同じプロジェクト名の画像を抽出
+            const projectImages = images.filter(item => item.project === project);
+            const currentIndex = projectImages.findIndex(item => item.id === currentItem.id) + 1;
+            const totalImages = projectImages.length;
+
+            const newCaption = `${project} — ${currentIndex}/${totalImages}`;
+
+            // 演出なしの即時切り替え
             imgEl.style.transition = 'none';
             imgEl.style.opacity = '1';
-            
-            imgEl.src = images[idx].src;
-            capEl.innerText = images[idx].cap;
+    
+            imgEl.src = currentItem.src;
+            capEl.innerText = newCaption; // ★新しいキャプションを適用
         }
 
         // 3. ナビゲーション関数

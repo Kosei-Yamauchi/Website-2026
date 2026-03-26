@@ -24,18 +24,53 @@ body {
 /* --- Splash Screen --- */
 #splash-screen {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
     background-color: #000;
     z-index: 9999;
-    display: none; 
-    align-items: center;
+    display: none; /* JSで flex に切り替え */
+    
+    /* 子要素（ロゴ）を垂直方向の中央に配置 */
+    align-items: center; 
     justify-content: flex-start;
-    padding-left: 40px;
 }
-.splash-logo { color: #fff; font-size: 23px; letter-spacing: 0.0em; text-transform: none; }
-.fade-out { opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
 
+.splash-logo { 
+    color: #fff; 
+    font-family: var(--font-sans);
+    text-transform: none;
+    line-height: 1;
+    
+    /* PC設定: ナビバーの左余白 40px に合わせる */
+    padding-left: 40px; 
+    font-size: 23px; 
+    letter-spacing: 0.0em; 
+}
+
+/* スプラッシュのフェードアウトアニメーション（1.5秒かけて低速に） */
+.fade-out { 
+    opacity: 0; 
+    transition: opacity 1.5s ease; 
+    pointer-events: none; 
+}
+
+/* --- Mobile Styles (Splash) --- */
+@media (max-width: 768px) {
+    #splash-screen {
+        /* モバイルでも垂直中央を維持 */
+        align-items: center; 
+    }
+
+    .splash-logo {
+        /* モバイル設定: ナビバーの左余白 20px に合わせ、サイズを16pxへ */
+        padding-left: 20px;
+        font-size: 16px; 
+        letter-spacing: 0.01em; /* 小さい文字なので僅かに広げると綺麗です */
+        color: var(--gray);
+    }
+}
 /* --- Navbar --- */
 .navbar {
     position: fixed; top: 0; left: 0; width: 100%; height: 100px;
@@ -51,6 +86,14 @@ body {
 .nav-switcher {
     position: absolute; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center; gap: 10px; font-size: 23px; white-space: nowrap;
+}
+
+/* ナビゲーション中央のスプリット線 (/) */
+.nav-divider-horizontal {
+    color: var(--gray) !important; /* 黒からグレーへ */
+    font-weight: 300;               /* 少し細くするとより繊細になります */
+    margin: 0 0px;                  /* 左右の余白微調整 */
+    user-select: none;              /* 選択不可にしてUI部品としての質感を出す */
 }
 
 .nav-links { flex: 1; display: flex; justify-content: flex-end; list-style: none; gap: 25px; margin: 0; padding: 0; }
@@ -107,18 +150,87 @@ body {
 .cat-title { font-size: 14px; color: var(--gray); font-weight: 400; margin-bottom: 30px; }
 
 /* --- Overview Grid --- */
-.ov-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 70px; }
-.ov-item { position: relative; display: block; overflow: hidden; background: var(--bg); }
-.ov-item img { width: 100%; height: auto; display: block; transition: opacity 0.5s ease; }
-.ov-caption {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    color: var(--gray); font-size: 10px; opacity: 0; transition: opacity 0.5s ease;
-    text-align: center; width: 80%; font-family: var(--font-serif);
+/* --- Overview Grid (グリッド全体の均等な余白) --- */
+.ov-grid { 
+    display: grid; 
+    /* PCでは7列。列の幅を均等（1fr）に */
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 10px;                 /* ★タイトで均等な余白 (10px) */
+    align-items: start;       /* ★画像をそれぞれのグリッドの上辺に揃える */
+    margin-bottom: 70px; 
 }
 
+/* --- Overview Grid Item (画像コンテナ) --- */
+.ov-item {
+    position: relative;
+    display: flex;             
+    flex-direction: column;   /* 縦並び */
+    align-items: center;       /* 左右中央（画像を横方向の中心に） */
+    justify-content: flex-start; /* ★上辺（Top）に寄せる */
+    overflow: hidden;
+    background: var(--bg);     /* 背景色と同じ白 */
+    width: 100%;               /* グリッドの幅いっぱい */
+    /* ※ここには aspect-ratio（正方形）は指定しません。
+       画像の高さによって、グリッドの「行」の高さが決まります。
+    */
+    cursor: pointer;
+}
+
+.ov-item img {
+    /* ★画像の比率を尊重してトリミングしない */
+    width: 100%;               /* 横幅をグリッドに合わせる */
+    height: auto;              /* ★高さを自動計算して比率を保つ */
+    display: block;
+    object-fit: contain;        
+    transition: opacity 0.5s ease;
+}
+
+/* --- Hover Caption (★画像のフレームの真ん中) --- */
+.ov-caption {
+    position: absolute;
+    /* .ov-item（グリッドの枠）ではなく、画像そのものの中心を計算 */
+    top: 0;
+    left: 0;
+    width: 100%;               
+    height: 100%;              /* ★画像の高さ（親要素の高さ）に合わせる */
+    
+    /* ★Flexboxで画像の中心に配置 */
+    display: flex;
+    align-items: center;       /* 上下中央（画像の中心） */
+    justify-content: center;    /* 左右中央（画像の中心） */
+    
+    color: var(--gray);
+    font-size: 10px;           /* 小さめに */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    text-align: center;
+    padding: 10px;             /* 文字が端に寄らないよう少し余白 */
+    box-sizing: border-box;    /* paddingを含めて計算 */
+    pointer-events: none;      
+    z-index: 2;
+    font-family: var(--font-serif);
+    letter-spacing: 0.05em;
+}
+
+/* ホバー時の挙動 */
 @media (hover: hover) {
-    .ov-item:hover img { opacity: 0.3; }
-    .ov-item:hover .ov-caption { opacity: 1; }
+    .ov-item:hover img {
+        opacity: 0.2;          /* 画像を薄く */
+    }
+    .ov-item:hover .ov-caption {
+        opacity: 1;
+    }
+}
+
+/* モバイル対応（5列） */
+@media (max-width: 768px) {
+    .ov-grid { 
+        grid-template-columns: repeat(5, 1fr); 
+        gap: 3px;             /* ★モバイルではさらにタイトに (3px) */
+    }
+    .ov-caption {
+        font-size: 6px;
+    }
 }
 
 /* --- Index List --- */

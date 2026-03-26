@@ -79,36 +79,47 @@ function changeSlide(direction, isManual = false) {
     const capEl = document.getElementById('home-slide-cap');
     if(!imgEl) return;
 
+    // --- インデックスの更新 (共通) ---
+    homeSlideIdx = (homeSlideIdx + direction + allImages.length) % allImages.length;
+    const currentItem = allImages[homeSlideIdx];
+
+    // --- ★新しいキャプション生成ロジック ---
+    const project = currentItem.project || "Untitled";
+    
+    // PROJECT_DATA内から、同じプロジェクト名の画像を抽出して順番を計算
+    const allData = [...PROJECT_DATA.commissioned, ...PROJECT_DATA.personal];
+    const projectImages = allData.filter(item => item.project === project);
+    const currentIndex = projectImages.findIndex(item => item.id === currentItem.id) + 1; // 1ベースにする
+    const totalImages = projectImages.length;
+
+    // キャプションテキストを作成 "プロジェクト名 — 1/3"
+    const newCaption = `${project} - ${currentIndex}/${totalImages}`;
+
+
     if (isManual) {
-        // --- 手動切り替え（演出なし・即時） ---
-        // 1. アニメーションを一時的に無効化
+        // --- 手動切り替え (演出なし) ---
         imgEl.style.transition = 'none';
         capEl.style.transition = 'none';
         
-        // 2. インデックスを更新して中身を入れ替え
-        homeSlideIdx = (homeSlideIdx + direction + allImages.length) % allImages.length;
-        imgEl.src = allImages[homeSlideIdx].src;
-        capEl.innerText = allImages[homeSlideIdx].cap;
+        imgEl.src = currentItem.src;
+        capEl.innerText = newCaption; // ★新しいキャプションを適用
         
-        // 3. 透明度を1（表示）に固定
         imgEl.style.opacity = 1;
         capEl.style.opacity = 1;
 
-        // 次回のアニメーションのために、少し遅らせて transition を戻しておく
         setTimeout(() => {
             imgEl.style.transition = 'opacity 0.6s ease-in-out';
             capEl.style.transition = 'opacity 0.6s ease-in-out';
         }, 50);
 
     } else {
-        // --- 自動スライドショー（現在のなめらかな切り替えを継続） ---
+        // --- 自動スライドショー (演出あり) ---
         imgEl.style.opacity = 0;
         capEl.style.opacity = 0;
 
         setTimeout(() => {
-            homeSlideIdx = (homeSlideIdx + direction + allImages.length) % allImages.length;
-            imgEl.src = allImages[homeSlideIdx].src;
-            capEl.innerText = allImages[homeSlideIdx].cap;
+            imgEl.src = currentItem.src;
+            capEl.innerText = newCaption; // ★新しいキャプションを適用
 
             imgEl.style.opacity = 1;
             capEl.style.opacity = 1;
