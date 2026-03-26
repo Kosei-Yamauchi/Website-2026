@@ -57,7 +57,7 @@ body {
     #splash-screen {
         /* ★垂直中央を解除し、上端（左上）を基準にする */
         align-items: flex-start; 
-        padding-top: 28px; /* ナビバー内のテキスト位置に合わせるための調整 */
+        padding-top: 26px; /* ナビバー内のテキスト位置に合わせるための調整 */
     }
 
     .splash-logo {
