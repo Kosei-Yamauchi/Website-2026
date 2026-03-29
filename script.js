@@ -37,7 +37,20 @@ async function initApp() {
 
 let homeSlideIdx = 0;
 let homeSlideTimer = null;
-const allImages = [...PROJECT_DATA.commissioned, ...PROJECT_DATA.personal];
+
+/* --- スライドショーの表示順設定 --- */
+// 1. まず全データを結合
+const rawData = [...PROJECT_DATA.personal, ...PROJECT_DATA.commissioned];
+
+// 2. 先頭に固定したい画像のIDを指定
+const firstImageId = 'Stones-4656'; 
+
+// 3. 指定したIDの画像を探し、それ以外と分ける
+const firstImg = rawData.find(img => img.id === firstImageId);
+const otherImgs = rawData.filter(img => img.id !== firstImageId);
+
+// 4. 配列を再結合（見つからなかった場合の保険付き）
+const allImages = firstImg ? [firstImg, ...otherImgs] : rawData;
 
 function renderHome() {
     const main = document.getElementById('main-content');
