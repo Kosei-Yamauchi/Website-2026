@@ -46,7 +46,7 @@ body {
     
     /* PC設定: ナビバーの左余白 40px に合わせる */
     padding-left: 40px; 
-    font-size: 23px; 
+    font-size: 20px; 
     letter-spacing: 0.0em; 
 }
 
@@ -83,12 +83,12 @@ body {
 
 .logo { 
     flex: 1; text-align: left; text-decoration: none; color: var(--text); 
-    font-size: 23px; letter-spacing: 0.0em; white-space: nowrap; font-family: var(--font-sans);
+    font-size: 20px; letter-spacing: 0.0em; white-space: nowrap; font-family: var(--font-sans);
 }
 
 .nav-switcher {
     position: absolute; left: 50%; transform: translateX(-50%);
-    display: flex; align-items: center; gap: 10px; font-size: 23px; white-space: nowrap;
+    display: flex; align-items: center; gap: 10px; font-size: 20px; white-space: nowrap;
 }
 
 /* ナビゲーション中央のスプリット線 (/) */
@@ -99,8 +99,8 @@ body {
     user-select: none;              /* 選択不可にしてUI部品としての質感を出す */
 }
 
-.nav-links { flex: 1; display: flex; justify-content: flex-end; list-style: none; gap: 25px; margin: 0; padding: 0; }
-.nav-links a { text-decoration: none; color: var(--text); font-size: 23px; transition: color 0.3s ease; }
+.nav-links { flex: 1; display: flex; justify-content: flex-end; list-style: none; gap: 20px; margin: 0; padding: 0; }
+.nav-links a { text-decoration: none; color: var(--text); font-size: 20px; transition: color 0.3s ease; }
 .nav-links a.active { color: var(--gray); pointer-events: none; }
 .nav-links a:hover { color: var(--gray) !important; }
 
@@ -109,7 +109,7 @@ body {
     padding: 140px 40px; 
     max-width: 850px; 
     line-height: 1.1; 
-    font-size: 23px; 
+    font-size: 20px; 
     box-sizing: border-box; 
 }
 
@@ -127,7 +127,7 @@ body {
 
 .contact-section .label {
     color: var(--gray);
-    font-size: 0.65em;
+    font-size: 0.55em;
     display: inline-block;
     margin-bottom: 5px;
 }
@@ -135,7 +135,7 @@ body {
 .copyright {
     margin-top: 90px;
     color: var(--gray);
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.02em;
 }
 
@@ -147,10 +147,10 @@ body {
 
 .close-btn { 
     position: fixed; top: 35px; right: 40px; cursor: pointer; 
-    font-size: 23px; z-index: 5000; font-family: var(--font-sans);
+    font-size: 20px; z-index: 5000; font-family: var(--font-sans);
 }
 
-.cat-title { font-size: 14px; color: var(--gray); font-weight: 400; margin-bottom: 30px; }
+.cat-title { font-size: 13px; color: var(--gray); font-weight: 400; margin-bottom: 30px; }
 
 /* --- Overview Grid --- */
 /* --- Overview Grid (グリッド全体の均等な余白) --- */
@@ -238,14 +238,14 @@ body {
 
 /* --- Index List --- */
 .idx-list { list-style: none; padding: 0; margin: 0 0 50px 0; max-width: 500px; }
-.idx-list li { margin-bottom: 8px; }
+.idx-list li { margin-bottom: 7px; }
 .idx-list a {
     display: flex; justify-content: space-between; align-items: baseline;
-    text-decoration: none; color: var(--text); font-size: 23px;
+    text-decoration: none; color: var(--text); font-size: 20px;
     font-family: var(--font-sans); transition: color 0.3s;
 }
 .idx-list a:hover { color: var(--gray) !important; }
-.idx-count { color: var(--gray); font-size: 18px; margin-left: 20px; font-variant-numeric: tabular-nums; }
+.idx-count { color: var(--gray); font-size: 17px; margin-left: 20px; font-variant-numeric: tabular-nums; }
 
 /* --- Hero / Slideshow --- */
 .hero-wrapper { 
@@ -269,14 +269,14 @@ body {
 
 .hero-image { max-width: 85vw; max-height: 70vh; object-fit: contain; opacity: 1; transition: opacity 0.6s ease-in-out; }
 .hero-caption { 
-    margin-top: 12px; font-size: 11px; color: var(--gray); text-align: center; 
+    margin-top: 12px; font-size: 10px; color: var(--gray); text-align: center; 
     transition: opacity 0.6s ease-in-out; font-family: var(--font-serif);
 }
 
 /* 言語スイッチのスタイル */
 .lang-switcher {
     margin-top: 40px;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--gray);
     font-family: var(--font-sans);
 }
@@ -299,13 +299,13 @@ body {
 
 /* 英語（既存のサイズを維持） */
 .lang-en {
-    font-size: 23px;
+    font-size: 20px;
     line-height: 1.1;
 }
 
 /* 日本語（サイズを小さく、文字間と行間を微調整） */
 .lang-jp {
-    font-size: 18px;             /* ★サイズを小さく */
+    font-size: 17px;             /* ★サイズを小さく */
     line-height: 1.1;             /* ★日本語は少し広めの行間が美しい */
     letter-spacing: 0.01em;       /* ★わずかに文字間をあけて可読性を確保 */
     font-family: "Yu Mincho", "MS Mincho", serif; /* きれいな明朝体指定 */
@@ -314,8 +314,8 @@ body {
 /* 日本語時の名前（英字より少しだけ大きく、でも全体とは調和させる） */
 .info-name-jp {
     font-family: var(--font-sans);
-    font-size: 23px;
-    margin-bottom: 1.8em;
+    font-size: 20px;
+    margin-bottom: 1.7em;
     letter-spacing: 0.0em;
 }
 
