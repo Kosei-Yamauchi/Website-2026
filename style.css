@@ -68,7 +68,7 @@ body {
     .splash-logo {
         /* ★ モバイル設定: 左余白 20px / サイズ 16px */
         padding-left: 20px;
-        font-size: 16px; 
+        font-size: 14px;
         letter-spacing: 0.01em;
         margin-top: 0; /* 位置調整をリセット */
     }
@@ -232,7 +232,7 @@ body {
         gap: 3px;             /* ★モバイルではさらにタイトに (3px) */
     }
     .ov-caption {
-        font-size: 6px;
+        font-size: 5px;
     }
 }
 
@@ -334,7 +334,7 @@ body {
     .nav-switcher { 
         position: static !important; 
         transform: none !important; 
-        font-size: 16px !important; 
+        font-size: 14px !important; 
     }
 
     /* モバイルの右側（Infoのみ表示） */
@@ -353,33 +353,33 @@ body {
         width: 0 !important;
     }
 
-    .nav-links a { font-size: 16px !important; }
+    .nav-links a { font-size: 14px !important; }
     
-    .close-btn { top: 20px; right: 20px; font-size: 16px; }
+    .close-btn { top: 20px; right: 20px; font-size: 14px; }
     
     .overlay-full { padding: 100px 20px !important; }
-    .cat-title { font-size: 12px; margin-bottom: 15px !important; }
+    .cat-title { font-size: 11px; margin-bottom: 15px !important; }
     .idx-list { max-width: 100%; }
-    .idx-list a { font-size: 16px !important; margin-left: -1px; }
-    .idx-count { font-size: 12px; }
+    .idx-list a { font-size: 14px !important; margin-left: -1px; }
+    .idx-count { font-size: 11px; }
     
     .ov-grid { grid-template-columns: repeat(5, 1fr); gap: 3px; }
     
-    #info-content { padding: 100px 20px !important; font-size: 16px !important; line-height: 1.2 !important; }
-    .copyright { margin-top: 60px !important; font-size: 12px !important; }
+    #info-content { padding: 100px 20px !important; font-size: 14px !important; line-height: 1.1 !important; }
+    .copyright { margin-top: 60px !important; font-size: 11px !important; }
     
     .click-area::after { display: none !important; }
 
     /* モバイル対応 */
     .lang-switcher {
         margin-top: 30px;
-        font-size: 12px;
+        font-size: 11px;
     }
-    .lang-en { font-size: 16px; }
+    .lang-en { font-size: 14px; }
     .lang-jp { 
-        font-size: 13px;          /* ★モバイルでも英語より一回り小さく */
+        font-size: 12px;          /* ★モバイルでも英語より一回り小さく */
         line-height: 1.1;
     }
-    .info-name-jp { font-size: 16px; }
+    .info-name-jp { font-size: 14px; }
 
 }
