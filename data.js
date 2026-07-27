@@ -54,7 +54,7 @@ const PROJECT_DATA = {
     ],
     commissioned: [
         { project: "Tentative, Echoes", id: "Echoes_Eye", src: "images/Commissioned/Echoes_Eye.jpg", cap: "Vol.1 Eye" },
-        { project: "Tentative, Echoes", id: "Echoes_Ear-2", src: "images/Commissioned/Echoes_Ear-2.jpg", cap: "Vol.1 Ear" },
+        { project: "Tentative, Echoes", id: "Echoes_Ear-2", src: "images/Commissioned/Echoes_Ear-2.jpg", cap: "Vol.1 Ear" },        
         { project: "Popeye Web, Japanese Breakfast", id: "Popeye_JB_001", src: "images/Commissioned/Popeye_JapaneseBreakfast-0327.jpg", cap: "Japanese Breakfast-001" },
         { project: "Popeye Web, Japanese Breakfast", id: "Popeye_JB_002", src: "images/Commissioned/Popeye_JapaneseBreakfast-0431.jpg", cap: "Japanese Breakfast-002" },
         { project: "Popeye Web, Japanese Breakfast", id: "Popeye_JB_003", src: "images/Commissioned/Popeye_JapaneseBreakfast-0468.jpg", cap: "Japanese Breakfast-003" },
