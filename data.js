@@ -39,11 +39,11 @@ const PROJECT_DATA = {
         { project: "Landscape, Europe", id: "germany-4667", src: "images/Personal/Germany-4667.jpg", cap: "Architecture, Europe-001" },
         { project: "Landscape, Europe", id: "germany-4686", src: "images/Personal/Germany-4686.jpg", cap: "Architecture, Europe-002" },
         { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/Germany-4699.jpg", cap: "Architecture, Europe-003" },
-        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4309-002.jpg", cap: "Architecture, Europe-004" },
-        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4331-004.jpg", cap: "Architecture, Europe-005" },
-        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4333-005.jpg", cap: "Architecture, Europe-006" },
-        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4342-006.jpg", cap: "Architecture, Europe-007" },
-        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4357-007.jpg", cap: "Architecture, Europe-008" },
+        { project: "Landscape, Europe", id: "germany-4309", src: "images/Personal/UK-4309-002.jpg", cap: "Architecture, Europe-004" },
+        { project: "Landscape, Europe", id: "germany-4331", src: "images/Personal/UK-4331-004.jpg", cap: "Architecture, Europe-005" },
+        { project: "Landscape, Europe", id: "germany-4333", src: "images/Personal/UK-4333-005.jpg", cap: "Architecture, Europe-006" },
+        { project: "Landscape, Europe", id: "germany-4342", src: "images/Personal/UK-4342-006.jpg", cap: "Architecture, Europe-007" },
+        { project: "Landscape, Europe", id: "germany-4357", src: "images/Personal/UK-4357-007.jpg", cap: "Architecture, Europe-008" },
 
         { project: "Landscape, Europe", id: "germany-4653", src: "images/Personal/Germany-4653.jpg", cap: "Landscape, Europe-001" },
         { project: "Landscape, Europe", id: "UK-4389", src: "images/Personal/UK-4389.jpg", cap: "Landscape, Europe-002" },
@@ -71,8 +71,6 @@ const PROJECT_DATA = {
         { project: "Dessau", id: "Dessau-14", src: "images/Personal/trip-to-europe-14.jpg", cap: "Dessau-003" },
         { project: "Dessau", id: "Dessau-16", src: "images/Personal/trip-to-europe-16.jpg", cap: "Dessau-004" },
         { project: "Dessau", id: "Dessau-19", src: "images/Personal/trip-to-europe-19.jpg", cap: "Dessau-005" }
-
-
     ],
     commissioned: [
         { project: "Tentative, Echoes", id: "Echoes_Eye", src: "images/Commissioned/Echoes_Eye.jpg", cap: "Vol.1 Eye" },
