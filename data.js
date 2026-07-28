@@ -36,11 +36,16 @@ const PROJECT_DATA = {
         { project: "Landscape, Asia", id: "srilanka-3386", src: "images/Personal/Personal_SriLanka-3386.jpg", cap: "Landscape, Asia-012" },
         { project: "Landscape, Asia", id: "srilanka-3345", src: "images/Personal/Personal_SriLanka-3345.jpg", cap: "Landscape, Asia-013" },
 
-        { project: "Landscape, Europe", id: "germany-4653", src: "images/Personal/Germany-4653.jpg", cap: "Landscape, Europe-001" },
         { project: "Landscape, Europe", id: "germany-4667", src: "images/Personal/Germany-4667.jpg", cap: "Architecture, Europe-001" },
         { project: "Landscape, Europe", id: "germany-4686", src: "images/Personal/Germany-4686.jpg", cap: "Architecture, Europe-002" },
         { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/Germany-4699.jpg", cap: "Architecture, Europe-003" },
+        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4309-002.jpg", cap: "Architecture, Europe-004" },
+        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4331-004.jpg", cap: "Architecture, Europe-005" },
+        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4333-005.jpg", cap: "Architecture, Europe-006" },
+        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4342-006.jpg", cap: "Architecture, Europe-007" },
+        { project: "Landscape, Europe", id: "germany-4699", src: "images/Personal/UK-4357-007.jpg", cap: "Architecture, Europe-008" },
 
+        { project: "Landscape, Europe", id: "germany-4653", src: "images/Personal/Germany-4653.jpg", cap: "Landscape, Europe-001" },
         { project: "Landscape, Europe", id: "UK-4389", src: "images/Personal/UK-4389.jpg", cap: "Landscape, Europe-002" },
         { project: "Landscape, Europe", id: "UK-4409", src: "images/Personal/UK-4409.jpg", cap: "Landscape, Europe-003" },
         { project: "Landscape, Europe", id: "UK-4416", src: "images/Personal/UK-4416.jpg", cap: "Landscape, Europe-004" },
@@ -50,14 +55,35 @@ const PROJECT_DATA = {
         { project: "Landscape, Europe", id: "UK-4397", src: "images/Personal/UK-4397.jpg", cap: "Landscape, Europe-008" },
         { project: "Landscape, Europe", id: "UK-4439", src: "images/Personal/UK-4439.jpg", cap: "Landscape, Europe-009" },
         { project: "Landscape, Europe", id: "UK-4490", src: "images/Personal/UK-4490.jpg", cap: "Landscape, Europe-010" },
-        { project: "Landscape, Europe", id: "UK-4496", src: "images/Personal/UK-4496.jpg", cap: "Landscape, Europe-011" }
+        { project: "Landscape, Europe", id: "UK-4386", src: "images/Personal/UK-4386-008.jpg", cap: "Landscape, Europe-011" },
+
+        { project: "Landscape, Japan", id: "Kamikouchi-0005", src: "images/Personal/Kamikouchi-0005-020.jpg", cap: "Landscape, Japan-001" },
+        { project: "Landscape, Japan", id: "Kamikouchi-0013", src: "images/Personal/Kamikouchi-0013-021.jpg", cap: "Landscape, Japan-002" },
+        { project: "Landscape, Japan", id: "Kamikouchi-9583", src: "images/Personal/Kamikouchi-9583-003.jpg", cap: "Landscape, Japan-003" },
+        { project: "Landscape, Japan", id: "Kamikouchi-9656", src: "images/Personal/Kamikouchi-9656-005.jpg", cap: "Landscape, Japan-004" },
+        { project: "Landscape, Japan", id: "Kamikouchi-9675", src: "images/Personal/Kamikouchi-9675-009.jpg", cap: "Landscape, Japan-005" },
+        { project: "Landscape, Japan", id: "Kamikouchi-9713", src: "images/Personal/Kamikouchi-9713-014.jpg", cap: "Landscape, Japan-006" },
+        { project: "Landscape, Japan", id: "Kamikouchi-4789", src: "images/Personal/Kirigamine-4789-004.jpg", cap: "Landscape, Japan-007" },
+        { project: "Landscape, Japan", id: "Kamikouchi-4830", src: "images/Personal/Kirigamine-4830-006.jpg", cap: "Landscape, Japan-008" },
+
+        { project: "Dessau", id: "Dessau-11", src: "images/Personal/trip-to-europe-11.jpg", cap: "Dessau-001" },
+        { project: "Dessau", id: "Dessau-13", src: "images/Personal/trip-to-europe-13.jpg", cap: "Dessau-002" },
+        { project: "Dessau", id: "Dessau-14", src: "images/Personal/trip-to-europe-14.jpg", cap: "Dessau-003" },
+        { project: "Dessau", id: "Dessau-16", src: "images/Personal/trip-to-europe-16.jpg", cap: "Dessau-004" },
+        { project: "Dessau", id: "Dessau-19", src: "images/Personal/trip-to-europe-19.jpg", cap: "Dessau-005" }
+
+
     ],
     commissioned: [
         { project: "Tentative, Echoes", id: "Echoes_Eye", src: "images/Commissioned/Echoes_Eye.jpg", cap: "Vol.1 Eye" },
-        { project: "Tentative, Echoes", id: "Echoes_Ear-2", src: "images/Commissioned/Echoes_Ear-2.jpg", cap: "Vol.1 Ear" },        
+        { project: "Tentative, Echoes", id: "Echoes_Ear-2", src: "images/Commissioned/Echoes_Ear-2.jpg", cap: "Vol.1 Ear" },   
+
         { project: "Popeye Web, Japanese Breakfast", id: "Popeye_JB_001", src: "images/Commissioned/Popeye_JapaneseBreakfast-0327.jpg", cap: "Japanese Breakfast-001" },
         { project: "Popeye Web, Japanese Breakfast", id: "Popeye_JB_002", src: "images/Commissioned/Popeye_JapaneseBreakfast-0431.jpg", cap: "Japanese Breakfast-002" },
         { project: "Popeye Web, Japanese Breakfast", id: "Popeye_JB_003", src: "images/Commissioned/Popeye_JapaneseBreakfast-0468.jpg", cap: "Japanese Breakfast-003" },
+        { project: "Popeye Web, Japanese Breakfast", id: "Popeye_JB_004", src: "images/Commissioned/Popeye_JapaneseBreakfast-0436.jpg", cap: "Japanese Breakfast-004" },
+        { project: "Popeye Web, Japanese Breakfast", id: "Popeye_JB_005", src: "images/Commissioned/Popeye_JapaneseBreakfast-0456.jpg", cap: "Japanese Breakfast-005" },
+
         { project: "OAO 2026 Spring-Summer Preview", id: "OAO_001", src: "images/Commissioned/OAO-Exhibition-4310.jpg", cap: "OAO 2026 Spring/Summer Preview-001" },
         { project: "OAO 2026 Spring-Summer Preview", id: "OAO_002", src: "images/Commissioned/OAO-Exhibition-4343.jpg", cap: "OAO 2026 Spring/Summer Preview-002" },
         { project: "OAO 2026 Spring-Summer Preview", id: "OAO_003", src: "images/Commissioned/OAO-Exhibition-4398.jpg", cap: "OAO 2026 Spring/Summer Preview-003" },
@@ -67,10 +93,10 @@ const PROJECT_DATA = {
         { project: "OAO 2026 Spring-Summer Preview", id: "OAO_007", src: "images/Commissioned/OAO-Exhibition-4509.jpg", cap: "OAO 2026 Spring/Summer Preview-007" },
         { project: "OAO 2026 Spring-Summer Preview", id: "OAO_008", src: "images/Commissioned/OAO-Exhibition-4538.jpg", cap: "OAO 2026 Spring/Summer Preview-008" },
 
-        { project: "Kan Izumi, New Balance Grays", id: "Kan Izumi New Balance Grays-0172", src: "images/Commissioned/NewBalance-GrayDays_DSCF0172.jpg", cap: "Kan Izumi, New Balance Grays-001" },
-        { project: "Kan Izumi, New Balance Grays", id: "Kan Izumi New Balance Grays-0224", src: "images/Commissioned/NewBalance-GrayDays_DSCF0224.jpg", cap: "Kan Izumi, New Balance Grays-002" },
-        { project: "Kan Izumi, New Balance Grays", id: "Kan Izumi New Balance Grays-0230", src: "images/Commissioned/NewBalance-GrayDays_DSCF0230.jpg", cap: "Kan Izumi, New Balance Grays-003" },
-        { project: "Kan Izumi, New Balance Grays", id: "Kan Izumi New Balance Grays-0235", src: "images/Commissioned/NewBalance-GrayDays_DSCF0235.jpg", cap: "Kan Izumi, New Balance Grays-004" },
+        { project: "Kan Izumi, New Balance Gray Days", id: "Kan Izumi New Balance Grays-0172", src: "images/Commissioned/NewBalance-GrayDays_DSCF0172.jpg", cap: "Kan Izumi, New Balance Gray Days-001" },
+        { project: "Kan Izumi, New Balance Gray Days", id: "Kan Izumi New Balance Grays-0224", src: "images/Commissioned/NewBalance-GrayDays_DSCF0224.jpg", cap: "Kan Izumi, New Balance Gray Days-002" },
+        { project: "Kan Izumi, New Balance Gray Days", id: "Kan Izumi New Balance Grays-0230", src: "images/Commissioned/NewBalance-GrayDays_DSCF0230.jpg", cap: "Kan Izumi, New Balance Gray Days-003" },
+        { project: "Kan Izumi, New Balance Gray Days", id: "Kan Izumi New Balance Grays-0235", src: "images/Commissioned/NewBalance-GrayDays_DSCF0235.jpg", cap: "Kan Izumi, New Balance Gray Days-004" },
 
         { project: "Perfume Oil Factory", id: "POF-1", src: "images/Commissioned/POF-1.jpg", cap: "Perfume Oil Factory-001" },
         { project: "Perfume Oil Factory", id: "POF-2", src: "images/Commissioned/POF-2.jpg", cap: "Perfume Oil Factory-002" },

@@ -43,7 +43,7 @@ let homeSlideTimer = null;
 const rawData = [...PROJECT_DATA.personal, ...PROJECT_DATA.commissioned];
 
 // 2. 先頭に固定したい画像のIDを指定
-const firstImageId = 'Stones-4656'; 
+const firstImageId = 'Goto-108'; 
 
 // 3. 指定したIDの画像を探し、それ以外と分ける
 const firstImg = rawData.find(img => img.id === firstImageId);
