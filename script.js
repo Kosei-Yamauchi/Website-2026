@@ -1,5 +1,7 @@
 /* script.js */
 
+let isOverlaysRendered = false; // Overviewが既に生成されたかのフラグ
+
 async function initApp() {
     try {
         const res = await fetch('nav.html');
@@ -22,7 +24,6 @@ async function initApp() {
             splash.style.display = 'none';
         }
 
-        renderOverlays();
         if (path === "index.html" || path === "") renderHome();
         
         // クローズボタンへのイベントリスナー強制登録（HTMLのonclickが効かない場合の保険）
@@ -39,17 +40,10 @@ let homeSlideIdx = 0;
 let homeSlideTimer = null;
 
 /* --- スライドショーの表示順設定 --- */
-// 1. まず全データを結合
 const rawData = [...PROJECT_DATA.personal, ...PROJECT_DATA.commissioned];
-
-// 2. 先頭に固定したい画像のIDを指定
 const firstImageId = 'Goto-108'; 
-
-// 3. 指定したIDの画像を探し、それ以外と分ける
 const firstImg = rawData.find(img => img.id === firstImageId);
 const otherImgs = rawData.filter(img => img.id !== firstImageId);
-
-// 4. 配列を再結合（見つからなかった場合の保険付き）
 const allImages = firstImg ? [firstImg, ...otherImgs] : rawData;
 
 function renderHome() {
@@ -79,43 +73,33 @@ function startTimer() {
 
 function manualChange(direction) {
     clearInterval(homeSlideTimer);
-    
-    // 手動クリック時は、アニメーションなしで即座に切り替える
-    changeSlide(direction, true); // 第2引数に true を渡す
-    
+    changeSlide(direction, true);
     startTimer();
 }
 
-// direction: 進む方向, isManual: 手動かどうか（デフォルトはfalse）
 function changeSlide(direction, isManual = false) {
     const imgEl = document.getElementById('home-slide-img');
     const capEl = document.getElementById('home-slide-cap');
     if(!imgEl) return;
 
-    // --- インデックスの更新 (共通) ---
     homeSlideIdx = (homeSlideIdx + direction + allImages.length) % allImages.length;
     const currentItem = allImages[homeSlideIdx];
 
-    // --- ★新しいキャプション生成ロジック ---
     const project = currentItem.project || "Untitled";
-    
-    // PROJECT_DATA内から、同じプロジェクト名の画像を抽出して順番を計算
     const allData = [...PROJECT_DATA.commissioned, ...PROJECT_DATA.personal];
     const projectImages = allData.filter(item => item.project === project);
-    const currentIndex = projectImages.findIndex(item => item.id === currentItem.id) + 1; // 1ベースにする
+    const currentIndex = projectImages.findIndex(item => item.id === currentItem.id) + 1;
     const totalImages = projectImages.length;
 
-    // キャプションテキストを作成 "プロジェクト名 — 1/3"
-    const newCaption = `${project} - ${currentIndex}/${totalImages}`;
-
+    // 修正済みキャプション
+    const newCaption = `${project} — ${currentIndex}/${totalImages}`;
 
     if (isManual) {
-        // --- 手動切り替え (演出なし) ---
         imgEl.style.transition = 'none';
         capEl.style.transition = 'none';
         
         imgEl.src = currentItem.src;
-        capEl.innerText = newCaption; // ★新しいキャプションを適用
+        capEl.innerText = newCaption;
         
         imgEl.style.opacity = 1;
         capEl.style.opacity = 1;
@@ -126,13 +110,12 @@ function changeSlide(direction, isManual = false) {
         }, 50);
 
     } else {
-        // --- 自動スライドショー (演出あり) ---
         imgEl.style.opacity = 0;
         capEl.style.opacity = 0;
 
         setTimeout(() => {
             imgEl.src = currentItem.src;
-            capEl.innerText = newCaption; // ★新しいキャプションを適用
+            capEl.innerText = newCaption;
 
             imgEl.style.opacity = 1;
             capEl.style.opacity = 1;
@@ -141,6 +124,7 @@ function changeSlide(direction, isManual = false) {
 }
 
 function renderOverlays() {
+    if (isOverlaysRendered) return; // 2回目以降は再生成しない
     let idxH = ''; let ovH = '';
     for (const sec in PROJECT_DATA) {
         const title = sec.charAt(0).toUpperCase() + sec.slice(1); 
@@ -150,7 +134,7 @@ function renderOverlays() {
             const url = `${sec}.html?id=${item.id}`;
             ovH += `
                 <a href="${url}" onclick="closeAll()" class="ov-item">
-                    <img src="${item.src}">
+                    <img src="${item.src}" loading="lazy">
                     <div class="ov-caption">${item.cap}</div>
                 </a>`;
         });
@@ -164,6 +148,7 @@ function renderOverlays() {
     const ovTarget = document.getElementById('overview-dynamic-content');
     if(idxTarget) idxTarget.innerHTML = idxH;
     if(ovTarget) ovTarget.innerHTML = ovH;
+    isOverlaysRendered = true;
 }
 
 function genGroupedList(data, type) {
@@ -188,6 +173,7 @@ function genGroupedList(data, type) {
 }
 
 function openOverlay(id) { 
+    renderOverlays(); // OverviewやIndexを開いた瞬間に初めて画像を読み込む
     const el = document.getElementById(id);
     if(el) {
         el.style.display = 'block'; 
